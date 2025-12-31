@@ -1,0 +1,20 @@
+{
+    "presets": {
+        "edge": {
+            "appType": "edge",
+            "sourceType": "url",
+            "url": "https://www.microsoft.com",
+            "kioskType": "fullscreen"
+        },
+        "chrome": {
+            "appType": "win32",
+            "path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "args": "--kiosk https://example.com"
+        },
+        "firefox": {
+            "appType": "win32",
+            "path": "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "args": "--kiosk https://example.com"
+        }
+    }
+}
