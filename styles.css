@@ -581,6 +581,13 @@ button:focus-visible {
     font-size: 0.85rem;
 }
 
+.btn-inline-icon {
+    width: 1em;
+    height: 1em;
+    margin-right: 6px;
+    vertical-align: -2px;
+}
+
 .btn-icon {
     padding: 8px;
     background: transparent;

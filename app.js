@@ -257,6 +257,7 @@ const actionHandlers = {
     loadPreset,
     loadConfig,
     saveConfig,
+    saveConfigAs,
     importXml,
     showDeployHelp,
     hideDeployHelp,
@@ -3397,6 +3398,7 @@ function loadPreset(preset) {
     state.allowedApps = [];
     state.startPins = [];
     state.autoLaunchApp = null;
+    configFileHandle = null;
 
     // Reset config name
     dom.get('configName').value = '';
