@@ -22,6 +22,8 @@
             </h1>
             <nav class="header-actions" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
+                <button type="button" class="btn-secondary" data-action="loadConfig">Load Config</button>
+                <button type="button" class="btn-secondary" data-action="saveConfig">Save Config</button>
                 <button type="button" class="btn-secondary" data-action="importXml" title="Assigned Access XML only">Import XML</button>
                 <button type="button" class="btn-secondary" data-action="showDeployHelp">Deploy Guide</button>
                 <button type="button" class="theme-toggle" data-action="toggleTheme" aria-label="Toggle light mode" title="Toggle light mode">
@@ -1167,6 +1169,8 @@
 
     <label for="importInput" class="sr-only">Import XML configuration file</label>
     <input type="file" id="importInput" accept=".xml" style="display:none" data-change="handleImport">
+    <label for="configImportInput" class="sr-only">Import AssignedAccess Builder configuration file</label>
+    <input type="file" id="configImportInput" accept=".aaxb.json,.json" style="display:none" data-change="handleConfigImport">
 
     <footer role="contentinfo">
         <p>

@@ -255,6 +255,8 @@ function updateAppTypeUI() {
    ============================================================================ */
 const actionHandlers = {
     loadPreset,
+    loadConfig,
+    saveConfig,
     importXml,
     showDeployHelp,
     hideDeployHelp,
@@ -323,6 +325,7 @@ const actionHandlers = {
     downloadStartLayoutXml,
     addEdgeSecondaryTile,
     handleImport,
+    handleConfigImport,
     copyProfileId,
     dismissCallout
 };
@@ -332,7 +335,7 @@ function runAction(action, target, event) {
     if (!handler) return;
 
     const arg = target?.dataset?.arg;
-    if (action === 'handleImport') {
+    if (action === 'handleImport' || action === 'handleConfigImport') {
         handler(event);
         return;
     }
@@ -2700,6 +2703,249 @@ function downloadStartLayoutXml() {
     const configName = dom.get('configName').value.trim();
     const suffix = configName ? configName.replace(/\s+/g, '-').replace(/[<>:"/\\|?*]/g, '') : 'Config';
     downloadFile(content, `StartLayout_${suffix}.xml`, 'application/xml');
+}
+
+/* ============================================================================
+   Config Save / Load
+   ============================================================================ */
+const CONFIG_SCHEMA_VERSION = 1;
+let configFileHandle = null;
+
+function getConfigSaveName() {
+    const configName = dom.get('configName').value.trim();
+    if (configName) {
+        const sanitized = configName.replace(/\s+/g, '-').replace(/[<>:"/\\|?*]/g, '');
+        return `AssignedAccess-${sanitized}.aaxb.json`;
+    }
+    return 'AssignedAccessConfig.aaxb.json';
+}
+
+function collectFormValues() {
+    const values = {};
+    document.querySelectorAll('input, select, textarea').forEach(el => {
+        if (!el.id || el.type === 'file') return;
+        if (el.dataset && el.dataset.configSkip === 'true') return;
+        if (el.type === 'checkbox') {
+            values[el.id] = !!el.checked;
+            return;
+        }
+        if (el.type === 'radio') {
+            values[el.id] = !!el.checked;
+            return;
+        }
+        values[el.id] = el.value;
+    });
+    return values;
+}
+
+function buildConfigSnapshot() {
+    return {
+        schemaVersion: CONFIG_SCHEMA_VERSION,
+        name: dom.get('configName').value.trim() || 'Unnamed',
+        savedAt: new Date().toISOString(),
+        payload: {
+            state: {
+                mode: state.mode,
+                accountType: state.accountType,
+                allowedApps: state.allowedApps,
+                startPins: state.startPins,
+                taskbarPins: state.taskbarPins,
+                autoLaunchApp: state.autoLaunchApp
+            },
+            formValues: collectFormValues()
+        }
+    };
+}
+
+async function writeConfigToHandle(handle, config) {
+    const writable = await handle.createWritable();
+    await writable.write(JSON.stringify(config, null, 2));
+    await writable.close();
+}
+
+async function saveConfig() {
+    const config = buildConfigSnapshot();
+    if ('showSaveFilePicker' in window) {
+        if (configFileHandle) {
+            try {
+                await writeConfigToHandle(configFileHandle, config);
+                alert('Configuration saved.');
+                return;
+            } catch (e) {
+                console.error('Failed to save configuration:', e);
+                alert('Could not save configuration.');
+                return;
+            }
+        }
+        await saveConfigAs(config);
+        return;
+    }
+
+    downloadFile(JSON.stringify(config, null, 2), getConfigSaveName(), 'application/json');
+}
+
+async function saveConfigAs(existingConfig) {
+    const config = existingConfig || buildConfigSnapshot();
+    if ('showSaveFilePicker' in window) {
+        try {
+            const handle = await window.showSaveFilePicker({
+                suggestedName: getConfigSaveName(),
+                types: [{
+                    description: 'AssignedAccess Builder Config',
+                    accept: { 'application/json': ['.aaxb.json', '.json'] }
+                }]
+            });
+            if (!handle) return;
+            await writeConfigToHandle(handle, config);
+            configFileHandle = handle;
+            alert('Configuration saved.');
+            return;
+        } catch (e) {
+            if (e && e.name === 'AbortError') return;
+            console.error('Failed to save configuration:', e);
+            alert('Could not save configuration.');
+            return;
+        }
+    }
+
+    downloadFile(JSON.stringify(config, null, 2), getConfigSaveName(), 'application/json');
+}
+
+async function loadConfig() {
+    if ('showOpenFilePicker' in window) {
+        try {
+            const [handle] = await window.showOpenFilePicker({
+                multiple: false,
+                types: [{
+                    description: 'AssignedAccess Builder Config',
+                    accept: { 'application/json': ['.aaxb.json', '.json'] }
+                }]
+            });
+            if (!handle) return;
+            const file = await handle.getFile();
+            await loadConfigFile(file, handle);
+            return;
+        } catch (e) {
+            if (e && e.name === 'AbortError') return;
+            console.error('Failed to open configuration:', e);
+            alert('Could not open configuration.');
+            return;
+        }
+    }
+
+    dom.get('configImportInput').click();
+}
+
+function normalizeConfigPayload(config) {
+    if (!config || typeof config !== 'object') {
+        return { ok: false, error: 'Invalid configuration file.' };
+    }
+    if (config.schemaVersion && config.schemaVersion !== CONFIG_SCHEMA_VERSION) {
+        return { ok: false, error: `Unsupported schema version: ${config.schemaVersion}` };
+    }
+    const payload = config.payload;
+    if (!payload || typeof payload !== 'object') {
+        return { ok: false, error: 'Configuration payload missing.' };
+    }
+    const savedState = payload.state || {};
+    return {
+        ok: true,
+        payload: {
+            state: savedState,
+            formValues: payload.formValues || {}
+        }
+    };
+}
+
+async function loadConfigFile(file, handle) {
+    const text = await file.text();
+    let parsed = null;
+    try {
+        parsed = JSON.parse(text);
+    } catch (e) {
+        alert('This file is not valid JSON.');
+        return;
+    }
+
+    const normalized = normalizeConfigPayload(parsed);
+    if (!normalized.ok) {
+        alert(normalized.error);
+        return;
+    }
+
+    if (!confirm('Loading this configuration will replace your current settings. Continue?')) {
+        return;
+    }
+
+    applyConfigSnapshot(normalized.payload);
+    configFileHandle = handle || null;
+    alert('Configuration loaded.');
+}
+
+function handleConfigImport(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    loadConfigFile(file, null);
+    event.target.value = '';
+}
+
+function applyConfigSnapshot(payload) {
+    loadPreset('blank');
+
+    const savedState = payload.state || {};
+    const savedMode = savedState.mode || 'single';
+    const savedAccount = savedState.accountType || 'auto';
+    let normalizedAccount = savedAccount;
+    if (savedMode === 'restricted' && savedAccount !== 'group' && savedAccount !== 'global') {
+        normalizedAccount = 'group';
+    }
+    if (savedMode !== 'restricted' && (savedAccount === 'group' || savedAccount === 'global')) {
+        normalizedAccount = 'auto';
+    }
+    setMode(savedMode);
+    setAccountType(normalizedAccount);
+
+    state.allowedApps = Array.isArray(savedState.allowedApps) ? savedState.allowedApps : [];
+    state.startPins = Array.isArray(savedState.startPins) ? savedState.startPins : [];
+    state.taskbarPins = Array.isArray(savedState.taskbarPins) ? savedState.taskbarPins : [];
+    const autoLaunch = Number.isInteger(savedState.autoLaunchApp) ? savedState.autoLaunchApp : null;
+
+    Object.entries(payload.formValues || {}).forEach(([id, value]) => {
+        const el = document.getElementById(id);
+        if (!el || el.type === 'file') return;
+        if (el.type === 'checkbox' || el.type === 'radio') {
+            el.checked = !!value;
+            return;
+        }
+        el.value = value;
+    });
+
+    renderAppList();
+    renderPinList();
+    renderTaskbarPinList();
+    updatePinTargetPresets();
+    updateAutoLaunchSelector();
+    if (autoLaunch !== null) {
+        dom.get('autoLaunchApp').value = String(autoLaunch);
+    }
+    updateAutoLaunchSelection();
+    updateTabVisibility();
+    updateAppTypeUI();
+    updateEdgeSourceUI();
+    updateEdgeTileSourceUI();
+    updateMultiEdgeSourceUI();
+    updateTaskbarPinTypeUI();
+    updateEditTaskbarPinTypeUI();
+    updatePinEdgeArgsModeUI();
+    updateEditPinEdgeArgsModeUI();
+    updateTaskbarPinEdgeArgsModeUI();
+    updateEditTaskbarEdgeArgsModeUI();
+    updateEdgeArgsVisibility('pin', 'pinTarget', 'pinEdgeArgsGroup');
+    updateEdgeArgsVisibility('editPin', 'editPinTarget', 'editPinEdgeArgsGroup');
+    updateEdgeArgsVisibility('taskbarPin', 'taskbarPinTarget', 'taskbarPinEdgeArgsGroup');
+    updateEdgeArgsVisibility('editTaskbar', 'editTaskbarPinTarget', 'editTaskbarEdgeArgsGroup');
+    updateBreakoutUI();
+    updatePreview();
 }
 
 
