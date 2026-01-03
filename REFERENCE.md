@@ -1,6 +1,6 @@
 # Technical Reference
 
-Technical reference for AssignedAccess XML Builder.
+Technical reference for Kiosk Overseer.
 
 **Note:** Local use should be served from a web server (not `file://`) so preset JSON loads correctly.
 
@@ -99,7 +99,7 @@ The Settings Catalog multi-app kiosk allow-list is AUMID-based and does not supp
    - Pre-flight checks (Windows edition, SYSTEM context via SID S-1-5-18, WMI availability)
    - Creates shortcuts in `%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\` for Start and Taskbar pins
    - Applies configuration via WMI (`MDM_AssignedAccess`)
-   - Generates NDJSON log file with timestamps and execution details in `%ProgramData%\\AssignedAccessXMLBuilder\\Logs`
+   - Generates NDJSON log file with timestamps and execution details in `%ProgramData%\\KioskOverseer\\Logs`
 4. Reboot
 
 **Shortcut-Only Script (Intune/OMA-URI):**

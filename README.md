@@ -1,4 +1,4 @@
-# AssignedAccess XML Builder
+# Kiosk Overseer (Windows Kiosk Builder)
 
 A guided builder for Windows kiosk configurations—no XML expertise required.
 
@@ -90,7 +90,7 @@ flowchart TD
 
 ### Export & Deploy
 - Real-time XML validation with contextual tooltips
-- PowerShell deploy script with NDJSON logging in `%ProgramData%\AssignedAccessXMLBuilder\Logs`
+- PowerShell deploy script with NDJSON logging in `%ProgramData%\KioskOverseer\Logs`
 - Shortcut-only script for Start Menu and Taskbar pins (Intune/OMA-URI scenarios)
 - Start layout XML download for Intune file uploads
 - Import/export XML configurations
@@ -165,7 +165,7 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[Export artifacts from AAXB] --> B{desktopAppLink pins exist?}
+    A[Export artifacts from Kiosk Overseer] --> B{desktopAppLink pins exist?}
     B -->|Yes| C[Run Shortcut Creator]
     B -->|No| D[Skip Shortcut Creator]
     C --> E{Need Edge custom name/icon?}
@@ -194,7 +194,7 @@ Windows Assigned Access (kiosk mode) is not the same as a normal user session. I
 This happens even if the `.lnk` file defines a custom name and custom icon.
 
 ### 2) Why .lnk Metadata Is Ignored in This Scenario
-Windows determines the name and icon for pinned items using the application’s identity (AppUserModelID / registered app visuals) and VisualElements manifests. Microsoft Edge ships with a VisualElements manifest that declares its display name and icon. In Assigned Access, Windows prefers the application’s own identity and VisualElements over shortcut metadata. This is Windows behavior and not a bug in AAXB.
+Windows determines the name and icon for pinned items using the application’s identity (AppUserModelID / registered app visuals) and VisualElements manifests. Microsoft Edge ships with a VisualElements manifest that declares its display name and icon. In Assigned Access, Windows prefers the application’s own identity and VisualElements over shortcut metadata. This is Windows behavior and not a bug in Kiosk Overseer.
 
 ### 3) What the Edge VisualElements Manifest Workaround Does
 The VisualElements manifest is a small file that tells Windows how an application’s tile should look. The workaround renames Edge’s VisualElements manifest file so Windows can no longer use it. When that file is unavailable, Windows may fall back to the `.lnk` metadata (name/icon) when rendering tiles for Edge-based shortcuts. This does not modify the shortcuts themselves; it changes which metadata Windows chooses to trust.
