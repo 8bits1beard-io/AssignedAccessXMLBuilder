@@ -477,6 +477,41 @@ header h1 {
     flex-wrap: wrap;
 }
 
+.header-actions .btn-deploy {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 1px rgba(138, 255, 193, 0.35), 0 0 10px rgba(138, 255, 193, 0.25);
+    position: relative;
+    animation: deployGlow 2.8s ease-in-out infinite, deployJitter 4.2s steps(1, end) infinite;
+}
+
+.header-actions .btn-deploy:hover {
+    box-shadow: 0 0 0 1px rgba(138, 255, 193, 0.5), 0 0 12px rgba(138, 255, 193, 0.35);
+}
+
+@keyframes deployGlow {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(138, 255, 193, 0.35), 0 0 10px rgba(138, 255, 193, 0.25); }
+    50% { box-shadow: 0 0 0 2px rgba(138, 255, 193, 0.55), 0 0 16px rgba(138, 255, 193, 0.4); }
+}
+
+@keyframes deployJitter {
+    0%, 85%, 100% { transform: translate(0, 0); }
+    86% { transform: translate(-2px, 0); }
+    87% { transform: translate(2px, -1px); }
+    88% { transform: translate(0, 2px); }
+    89% { transform: translate(-2px, 1px); }
+    90% { transform: translate(2px, 0); }
+    91% { transform: translate(-1px, -2px); }
+    92% { transform: translate(0, 0); }
+    93% { transform: translate(2px, 2px); }
+    94% { transform: translate(-1px, 1px); }
+    95% { transform: translate(0, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .header-actions .btn-deploy {
+        animation: none;
+    }
+}
 .header-actions .export-group {
     width: auto;
 }
