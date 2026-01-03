@@ -949,6 +949,109 @@ legend.section-header {
     min-height: 400px;
 }
 
+.crt-terminal {
+    position: relative;
+    isolation: isolate;
+    background: #060B08;
+    color: #63FF9A;
+    border: 2px solid #2C5F46;
+    border-radius: 6px;
+    padding: 14px;
+    font-family: "Share Tech Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 13.75px;
+    line-height: 1.45;
+    letter-spacing: 0.02em;
+    text-shadow: 0 0 6px rgba(99, 255, 154, 0.35);
+    box-shadow: inset 0 0 0 1px rgba(44, 95, 70, 0.35), inset 0 0 24px rgba(0, 0, 0, 0.65);
+    caret-color: #8AFFC1;
+}
+
+.crt-terminal:focus {
+    outline: none;
+}
+
+.crt-terminal:focus-visible {
+    box-shadow: inset 0 0 0 1px rgba(44, 95, 70, 0.35), inset 0 0 24px rgba(0, 0, 0, 0.65),
+        0 0 0 2px #8AFFC1, 0 0 10px rgba(138, 255, 193, 0.35);
+}
+
+.crt-terminal::before,
+.crt-terminal::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    border-radius: 6px;
+    z-index: 1;
+}
+
+.crt-terminal::before {
+    background: repeating-linear-gradient(
+        180deg,
+        rgba(99, 255, 154, 0.06) 0px,
+        rgba(99, 255, 154, 0.06) 1px,
+        rgba(0, 0, 0, 0) 2px,
+        rgba(0, 0, 0, 0) 4px
+    );
+    opacity: 0.06;
+}
+
+.crt-terminal::after {
+    background: radial-gradient(circle at center, rgba(0, 0, 0, 0) 40%, rgba(0, 0, 0, 0.25) 100%);
+    opacity: 0.22;
+}
+
+@keyframes crtFlicker {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.04); }
+}
+
+.crt-terminal {
+    animation: crtFlicker 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .crt-terminal {
+        animation: none;
+    }
+}
+
+.crt-terminal::selection,
+.crt-terminal *::selection {
+    background: rgba(99, 255, 154, 0.18);
+}
+
+.crt-terminal::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.crt-terminal::-webkit-scrollbar-track {
+    background: #0b120e;
+}
+
+.crt-terminal::-webkit-scrollbar-thumb {
+    background: #2C5F46;
+    border-radius: 6px;
+}
+
+.crt-terminal {
+    scrollbar-color: #2C5F46 #0b120e;
+}
+
+.crt-terminal .declaration,
+.crt-terminal .comment,
+.crt-terminal .cdata {
+    color: #2F7F55;
+}
+
+.crt-terminal .tag,
+.crt-terminal .attr,
+.crt-terminal .value,
+.crt-terminal .cdata-content {
+    color: #63FF9A;
+}
+
 .xml-preview .declaration {
     color: var(--text-secondary);
     font-style: italic;
