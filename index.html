@@ -25,35 +25,13 @@
             <nav class="header-actions" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
                 <button type="button" class="btn-secondary" data-action="loadConfig">Load Config</button>
-                <button type="button" class="btn-secondary" data-action="saveConfigAs">
-                    <svg class="btn-inline-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                        <path fill="currentColor" d="M4 3h13l3 3v15H4V3zm2 2v5h10V5H6zm0 7v7h12v-7H6zm2 2h8v3H8v-3z"/>
-                    </svg>
-                    Save
-                </button>
+                <button type="button" class="btn-secondary" data-action="saveConfigAs">Save</button>
                 <button type="button" class="btn-secondary" data-action="importXml" title="Assigned Access XML only">Import XML</button>
-                <button type="button" class="btn-primary" data-action="downloadXml">Download XML</button>
-                <div class="export-group header-export">
-                    <button type="button" class="btn-secondary btn-small" data-action="toggleExportSection" data-arg="exportDeploymentHelpers" aria-expanded="false" aria-controls="exportDeploymentHelpers">Deployment helpers</button>
-                    <div id="exportDeploymentHelpers" class="hidden export-helper-grid" aria-hidden="true">
-                        <div class="export-helper">
-                            <button type="button" class="btn-secondary btn-small" data-action="downloadPowerShell" title="Applies the XML locally; skip if deploying via Intune/MDM.">Apply Assigned Access (PowerShell)</button>
-                            <div class="export-note">Applies the XML locally (skip if deploying via Intune/MDM).</div>
-                        </div>
-                        <div class="export-helper">
-                            <button type="button" class="btn-secondary btn-small" data-action="downloadShortcutsScript" title="Creates required .lnk shortcuts for desktopAppLink pins.">Shortcut Creator (PowerShell)</button>
-                            <div class="export-note">Creates required .lnk shortcuts for desktopAppLink pins.</div>
-                        </div>
-                        <div class="export-helper">
-                            <button type="button" class="btn-secondary btn-small" data-action="downloadStartLayoutXml" id="downloadStartLayoutBtn">Start Layout XML</button>
-                            <div class="export-note">Optional; only for environments that import Start layouts.</div>
-                        </div>
-                        <div class="export-helper">
-                            <button type="button" class="btn-secondary btn-small" data-action="downloadEdgeManifestWorkaround" title="Optional, unsupported workaround to influence how Edge shortcut name/icon appear in Assigned Access.">Edge Manifest Workaround</button>
-                            <div class="export-note">Optional; may help Edge shortcuts use .lnk name/icon metadata.</div>
-                        </div>
-                    </div>
-                </div>
+                <button type="button" class="btn-secondary" data-action="downloadXml">Download XML</button>
+                <button type="button" class="btn-primary btn-small" data-action="downloadPowerShell" title="Applies the XML locally; skip if deploying via Intune/MDM.">Apply Assigned Access (PowerShell)</button>
+                <button type="button" class="btn-secondary btn-small" data-action="downloadShortcutsScript" title="Creates required .lnk shortcuts for desktopAppLink pins.">Shortcut Creator (PowerShell)</button>
+                <button type="button" class="btn-secondary btn-small" data-action="downloadStartLayoutXml" id="downloadStartLayoutBtn">Start Layout XML</button>
+                <button type="button" class="btn-secondary btn-small" data-action="downloadEdgeManifestWorkaround" title="Optional, unsupported workaround to influence how Edge shortcut name/icon appear in Assigned Access.">Edge Manifest Workaround</button>
                 <button type="button" class="btn-secondary" data-action="showDeployHelp">Deploy Guide</button>
             </nav>
         </div>
