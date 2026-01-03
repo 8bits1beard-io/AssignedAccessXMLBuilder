@@ -167,8 +167,7 @@ body::after {
 }
 
 header,
-main,
-footer {
+main {
     position: relative;
     z-index: 1;
 }
@@ -1208,31 +1207,6 @@ select.invalid {
    ============================================ */
 .hidden {
     display: none !important;
-}
-
-/* ============================================
-   Footer
-   ============================================ */
-footer {
-    background: var(--bg-secondary);
-    border-top: 2px solid var(--border);
-    padding: 12px 20px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: var(--text-secondary);
-}
-
-footer p {
-    margin: 0;
-}
-
-footer a {
-    color: var(--accent);
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
 }
 
 /* ============================================
