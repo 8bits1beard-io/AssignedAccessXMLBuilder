@@ -101,7 +101,6 @@ Note: Intune’s Settings Catalog kiosk allow-list is AUMID-only. Use the OMA-UR
 Note: If Windows blocks a downloaded script, right-click the `.ps1` file, choose **Properties**, then **Unblock**.
 
 ### Accessibility
-- Dark/light theme
 - WCAG-aligned UI
 - Keyboard navigation
 
@@ -115,7 +114,7 @@ Note: If Windows blocks a downloaded script, right-click the `.ps1` file, choose
 **Option 1: Use the Hosted Tool (Recommended)**
 
 Open `https://aaxb.pages.dev` in any modern browser.
-Use the left sidebar to navigate between Setup, Applications, Start Menu, System, and Summary.
+Use the left sidebar to navigate between Kiosk Setup, Allowed Applications, Pinned Items, System, and Summary.
 
 **Option 2: Run Locally**
 

@@ -37,12 +37,13 @@ Technical reference for Kiosk Overseer.
    - Each pin needs: Name, Target path, optional arguments/icon
    - Icon files must exist on the target device; the tool creates shortcuts but does not deploy icons
    - Use the actions next to Allowed Apps to pin to Start/Taskbar or add Edge site tiles
-5. Configure system restrictions:
+5. Configure pinned items:
+   - **Taskbar Layout (optional)**: Set taskbar pins; shortcut icon paths must exist on the target device
+6. Configure system restrictions:
    - **Taskbar**: Show or hide
    - **File Explorer**: No access, Downloads only, Removable drives, or No restriction
-   - **Taskbar Layout (optional)**: Set taskbar pins; shortcut icon paths must exist on the target device
-6. Configure account (Auto-logon or Existing Account)
-7. Export
+7. Configure account (Auto-logon or Existing Account)
+8. Export
 
 ### Restricted User Experience
 
@@ -51,14 +52,15 @@ Use this mode when you need to apply the same restricted desktop to multiple use
 1. Select **Restricted User** mode
 2. Add allowed applications (same as Multi-App)
 3. Add Start menu pins (same as Multi-App)
-4. Configure system restrictions (same as Multi-App)
-5. Choose account type:
+4. Configure pinned items (same as Multi-App)
+5. Configure system restrictions (same as Multi-App)
+6. Choose account type:
    - **User Group** — Apply to members of a specific group
      - Local Group: `KioskUsers`
      - AD Group: `DOMAIN\KioskUsers`
      - Azure AD Group: Use the Group Object ID (GUID)
    - **Global Profile** — Apply to ALL non-administrator users on the device
-6. Export
+7. Export
 
 **Note:** Restricted User mode supports User Group or Global Profile only. Users must sign in with their own credentials.
 
@@ -90,7 +92,7 @@ The Settings Catalog multi-app kiosk allow-list is AUMID-based and does not supp
 
 ### PowerShell Script
 
-1. Click **Download Deploy Script**
+1. Click **Apply Assigned Access (PowerShell)**
 2. Run as SYSTEM on target device:
    ```powershell
    psexec.exe -i -s powershell.exe -ExecutionPolicy Bypass -File "AssignedAccess-<Config>.ps1"
@@ -103,7 +105,7 @@ The Settings Catalog multi-app kiosk allow-list is AUMID-based and does not supp
 4. Reboot
 
 **Shortcut-Only Script (Intune/OMA-URI):**
-- Click **Download Shortcut Script** to generate only the Start and Taskbar .lnk files
+- Click **Shortcut Creator (PowerShell)** to generate only the Start and Taskbar .lnk files
 - Run as Administrator on target devices to populate the Start Menu Programs folder
 - If Windows blocks the script, right-click the .ps1 file, choose **Properties**, then **Unblock**
 
