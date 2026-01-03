@@ -1896,34 +1896,6 @@ function getExportStatus() {
     return errors.length === 0 ? 'ready' : 'pending';
 }
 
-function updateStatusPanel() {
-    const statusState = dom.get('statusState');
-    if (!statusState) return;
-    const errors = validate();
-    const setupComplete = getSetupStatus() === 'complete';
-    const appsComplete = getAppsStatus() === 'complete';
-    let statusLabel = 'INCOMPLETE';
-    if (errors.length > 0) {
-        statusLabel = 'ERROR';
-    } else if (setupComplete && appsComplete) {
-        statusLabel = 'VALID';
-    }
-
-    const modeLabel = state.mode === 'single'
-        ? 'SINGLE-APP'
-        : state.mode === 'restricted'
-            ? 'RESTRICTED USER'
-            : 'MULTI-APP';
-    const allowedCount = state.mode === 'single'
-        ? (appsComplete ? 1 : 0)
-        : state.allowedApps.length;
-
-    statusState.textContent = statusLabel;
-    dom.get('statusMode').textContent = modeLabel;
-    dom.get('statusAllowedApps').textContent = String(allowedCount);
-    dom.get('statusPins').textContent = String(state.startPins.length + state.taskbarPins.length);
-}
-
 /* ============================================================================
    Preview & Syntax Highlighting
    ============================================================================ */
@@ -1938,7 +1910,6 @@ function updatePreview() {
     updateExportDetectedGuidance();
     showValidation();
     updateProgressRail();
-    updateStatusPanel();
     updateSummary();
 }
 

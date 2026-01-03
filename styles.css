@@ -1312,9 +1312,6 @@ select.invalid {
         padding: 10px 12px;
     }
 
-    .status-panel {
-        margin: 12px 12px 0;
-    }
 }
 
 /* ============================================
@@ -1564,54 +1561,6 @@ footer span {
     font-weight: 600;
     color: var(--text-primary);
     margin-bottom: 2px;
-}
-
-/* ============================================
-   Status Panel
-   ============================================ */
-.status-panel {
-    border: var(--frame-border);
-    border-radius: var(--frame-radius);
-    background: var(--bg-secondary);
-    padding: 12px 16px;
-    margin: 12px 20px 0;
-    box-shadow: var(--frame-inset);
-}
-
-.status-panel-title {
-    font-size: 0.8rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 8px;
-}
-
-.status-panel-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-}
-
-.status-panel-item {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    padding: 8px 10px;
-    border: var(--frame-border);
-    border-radius: 2px;
-    background: var(--bg-tertiary);
-}
-
-.status-panel-label {
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-}
-
-.status-panel-value {
-    font-size: 0.95rem;
-    color: var(--text-primary);
 }
 
 /* ============================================
