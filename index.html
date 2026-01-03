@@ -55,7 +55,7 @@
                     <div class="side-nav-logo-inspiration">
                         Inspired by the work of <a href="https://www.linkedin.com/in/brandon-villines/" target="_blank" rel="noopener noreferrer">Brandon Villines</a>
                     </div>
-                    <div class="side-nav-logo-version">Version: <span id="appVersion">1.0.0</span></div>
+                    <div class="side-nav-logo-version">Version: <span id="appVersion">1.0.1</span></div>
                 </div>
             </div>
             <div class="export-actions side-nav-export" role="group" aria-label="Export options">
@@ -97,6 +97,11 @@
                 <div class="tab-panels">
                     <!-- Setup Tab -->
                     <div class="tab-content active" role="tabpanel" id="tab-setup" aria-labelledby="tab-btn-setup">
+                        <div class="callout" data-callout-id="mode">
+                            <div class="callout-title">Start here</div>
+                            <div class="callout-body">Pick your kiosk mode first. It controls which tabs and options show up.</div>
+                            <button type="button" class="callout-close" data-action="dismissCallout" data-arg="mode" aria-label="Dismiss">×</button>
+                        </div>
                         <p class="section-hint">Step 1: Choose kiosk mode, set profile details, then pick the account type.</p>
                         <!-- Kiosk Mode -->
                         <fieldset class="section">
@@ -134,12 +139,6 @@
                         <div class="inline-note">These presets are starting points. Update names, URLs, and account details before exporting.</div>
                     </div>
                 </fieldset>
-                <div class="callout" data-callout-id="mode">
-                    <div class="callout-title">Start here</div>
-                    <div class="callout-body">Pick your kiosk mode first. It controls which tabs and options show up.</div>
-                    <button type="button" class="callout-close" data-action="dismissCallout" data-arg="mode" aria-label="Dismiss">×</button>
-                </div>
-
                 <!-- Profile Configuration -->
                 <fieldset class="section">
                     <legend class="section-header">Profile</legend>
