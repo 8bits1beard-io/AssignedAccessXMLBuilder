@@ -47,7 +47,6 @@
                 <button type="button" class="side-nav-btn" role="tab" aria-selected="false" aria-controls="tab-system" id="tab-btn-system" data-action="switchTab" data-arg="system">System</button>
                 <button type="button" class="side-nav-btn" role="tab" aria-selected="false" aria-controls="tab-summary" id="tab-btn-summary" data-action="switchTab" data-arg="summary">Summary</button>
             </div>
-            <div class="side-nav-divider" role="presentation"></div>
             <div class="side-nav-logo" role="presentation">
                 <img src="assets/Fallout_MKSA.png" alt="MKSA">
                 <div class="side-nav-logo-caption">
@@ -68,9 +67,9 @@
         <!-- Configuration Panel -->
         <section class="panel" aria-labelledby="config-heading">
             <h2 id="config-heading" class="panel-header">
-                Configuration
+                SECTION 00: CONFIGURATION
             </h2>
-            <div class="panel-content with-tabs">
+            <div class="panel-content with-tabs crt-pane">
                 <div class="progress-rail" role="list" aria-label="Setup progress">
                     <div class="progress-step" data-step="setup" role="listitem">
                         <div class="progress-label">1. Setup</div>
@@ -102,10 +101,28 @@
                             <div class="callout-body">Pick your kiosk mode first. It controls which tabs and options show up.</div>
                             <button type="button" class="callout-close" data-action="dismissCallout" data-arg="mode" aria-label="Dismiss">×</button>
                         </div>
+                        <div class="frame-block preset-block">
+                            <div class="frame-block-title">Presets</div>
+                            <div class="example-grid" role="group" aria-label="Example configurations">
+                                <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="lobbyEdge">
+                                    <span class="example-title">Lobby Edge Kiosk</span>
+                                    <span class="example-detail">Single-app fullscreen browser</span>
+                                </button>
+                                <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="receptionMulti">
+                                    <span class="example-title">Reception Multi-App</span>
+                                    <span class="example-detail">Edge + utilities + Start pins</span>
+                                </button>
+                                <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="classroomRestricted">
+                                    <span class="example-title">Classroom Restricted</span>
+                                    <span class="example-detail">Group-based access</span>
+                                </button>
+                            </div>
+                            <div class="inline-note">These presets are starting points. Update names, URLs, and account details before exporting.</div>
+                        </div>
                         <p class="section-hint">Step 1: Choose kiosk mode, set profile details, then pick the account type.</p>
                         <!-- Kiosk Mode -->
                         <fieldset class="section">
-                    <legend class="section-header">Kiosk Mode</legend>
+                        <legend class="section-header">SECTION 01: KIOSK MODE</legend>
                     <div class="section-content">
                         <div class="toggle-group" role="group" aria-label="Kiosk mode selection">
                             <button type="button" id="modeSingle" class="active" data-action="setMode" data-arg="single" aria-pressed="true">Single-App</button>
@@ -119,29 +136,9 @@
                         </p>
                     </div>
                 </fieldset>
-                <fieldset class="section">
-                    <legend class="section-header">Example Configurations</legend>
-                    <div class="section-content">
-                        <div class="example-grid" role="group" aria-label="Example configurations">
-                            <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="lobbyEdge">
-                                <span class="example-title">Lobby Edge Kiosk</span>
-                                <span class="example-detail">Single-app fullscreen browser</span>
-                            </button>
-                            <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="receptionMulti">
-                                <span class="example-title">Reception Multi-App</span>
-                                <span class="example-detail">Edge + utilities + Start pins</span>
-                            </button>
-                            <button type="button" class="example-card" data-action="applyExampleConfig" data-arg="classroomRestricted">
-                                <span class="example-title">Classroom Restricted</span>
-                                <span class="example-detail">Group-based access</span>
-                            </button>
-                        </div>
-                        <div class="inline-note">These presets are starting points. Update names, URLs, and account details before exporting.</div>
-                    </div>
-                </fieldset>
                 <!-- Profile Configuration -->
                 <fieldset class="section">
-                    <legend class="section-header">Profile</legend>
+                    <legend class="section-header">SECTION 02: PROFILE</legend>
                     <div class="section-content">
                         <div class="form-group">
                             <label for="configName" class="with-tooltip">
@@ -161,7 +158,7 @@
                                 <input type="text" id="profileId" placeholder="{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}" data-change="updatePreview" aria-describedby="profileId-tooltip">
                                 <button type="button" class="btn-secondary" data-action="generateGuid">Generate</button>
                                 <button type="button" class="btn-secondary btn-small" data-action="copyProfileId" aria-label="Copy Profile GUID to clipboard">
-                                    <span aria-hidden="true">&#128203;</span>
+                                    <span aria-hidden="true">CPY</span>
                                 </button>
                             </div>
                         </div>
@@ -170,7 +167,7 @@
 
                 <!-- Account Configuration -->
                 <fieldset class="section">
-                    <legend class="section-header">Account</legend>
+                    <legend class="section-header">SECTION 03: ACCOUNT</legend>
                     <div class="section-content">
                         <div class="form-group">
                             <label id="account-type-label" class="with-tooltip">
@@ -247,7 +244,7 @@
                 <!-- Single-App Configuration -->
                 <div id="singleAppConfig">
                     <fieldset class="section">
-                        <legend class="section-header">Single-App Settings</legend>
+                        <legend class="section-header">SECTION 04: SINGLE-APP SETTINGS</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label class="with-tooltip">
@@ -461,7 +458,7 @@
                 <!-- Multi-App Configuration -->
                 <div id="multiAppConfig" class="hidden" aria-hidden="true">
                     <fieldset class="section">
-                        <legend class="section-header">Allowed Applications</legend>
+                        <legend class="section-header">SECTION 05: ALLOWED APPLICATIONS</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label id="addApp-label" class="with-tooltip">
@@ -552,7 +549,7 @@
                     </fieldset>
 
                     <fieldset class="section">
-                        <legend class="section-header">Auto-Launch Configuration</legend>
+                        <legend class="section-header">SECTION 06: AUTO-LAUNCH CONFIGURATION</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label for="autoLaunchApp" class="with-tooltip">
@@ -568,7 +565,7 @@
                     </fieldset>
 
                     <fieldset class="section hidden" id="multiAppEdgeConfig" aria-hidden="true">
-                        <legend class="section-header">Edge Kiosk Settings</legend>
+                        <legend class="section-header">SECTION 07: EDGE KIOSK SETTINGS</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label for="multiEdgeSourceType" class="with-tooltip">
@@ -615,7 +612,7 @@
                     </fieldset>
 
                     <fieldset class="section hidden" id="win32ArgsConfig" aria-hidden="true">
-                        <legend class="section-header">Win32 App Arguments</legend>
+                        <legend class="section-header">SECTION 08: WIN32 APP ARGUMENTS</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label for="win32AutoLaunchArgs" class="with-tooltip">
@@ -635,7 +632,7 @@
                     <div class="tab-content" role="tabpanel" id="tab-startmenu" aria-labelledby="tab-btn-startmenu">
                     <p class="section-hint">Step 3: Add Start menu pins and optional shortcuts.</p>
                     <fieldset class="section">
-                        <legend class="section-header">Start Menu Pins</legend>
+                        <legend class="section-header">SECTION 09: START MENU PINS</legend>
                         <div class="section-content">
                             <div class="callout callout-compact" data-callout-id="pins">
                                 <div class="callout-body">Pins shape the on-device experience. Add a few so users can navigate quickly.</div>
@@ -648,7 +645,7 @@
                                     <button type="button" class="tooltip-icon" aria-label="Help for Add Shortcut" aria-describedby="addShortcut-tooltip">?</button>
                                     <span class="tooltip-content" id="addShortcut-tooltip" role="tooltip">Create shortcuts that will be pinned to the Start menu. The deployment script creates .lnk files in the Start Menu Programs folder.</span>
                                 </label>
-                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                                     <div style="font-size: 0.7rem; color: var(--text-secondary); font-style: italic;">
                                         DesktopAppLink pins reference .lnk files. If the shortcut doesn’t already exist on the device, you’ll need to run the Shortcut Creator script after exporting.
                                     </div>
@@ -733,7 +730,7 @@
                                     <button type="button" class="tooltip-icon" aria-label="Help for Edge Site Tile" aria-describedby="edgeTile-tooltip">?</button>
                                     <span class="tooltip-content" id="edgeTile-tooltip" role="tooltip">Creates a Start menu tile that opens a specific site in Edge. Requires the Edge packaged app ID and msedge.exe in Allowed Apps. Secondary tiles do not force InPrivate; use Edge policies if you need strict privacy behavior.</span>
                                 </label>
-                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                                     <div style="font-size: 0.7rem; color: var(--text-secondary); font-style: italic;">
                                         DesktopAppLink pins reference .lnk files. If the shortcut doesn’t already exist on the device, you’ll need to run the Shortcut Creator script after exporting.
                                     </div>
@@ -778,7 +775,7 @@
 
                             <div id="pinEditPanel" class="form-group hidden" aria-live="polite">
                                 <label>Edit Pin <span id="editPinType" style="font-weight: 400; color: var(--text-secondary);"></span></label>
-                                <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                                     <div>
                                         <label for="editPinName" style="font-size: 0.75rem; color: var(--text-secondary);">Name *</label>
                                         <input type="text" id="editPinName" style="width: 100%;">
@@ -875,7 +872,7 @@
                         </div>
                     </fieldset>
                     <fieldset class="section">
-                        <legend class="section-header">Taskbar Layout (Optional)</legend>
+                        <legend class="section-header">SECTION 10: TASKBAR LAYOUT (OPTIONAL)</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <label class="with-tooltip">
@@ -884,7 +881,7 @@
                                     <span class="tooltip-content" id="taskbarPins-tooltip" role="tooltip">Taskbar pins support packaged app IDs (AUMID) or desktop app target paths. The tool creates the shortcut; icon paths are only used for shortcuts you create.</span>
                                 </label>
                                 <div class="why-note">Why this matters: Taskbar pins support packaged app IDs or .lnk shortcuts only.</div>
-                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="display: flex; flex-direction: column; gap: 8px; padding: 10px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                                     <div style="display: flex; gap: 8px;">
                                         <div style="flex: 1;">
                                             <label for="taskbarPinName" style="font-size: 0.75rem; color: var(--text-secondary);">Name *</label>
@@ -982,7 +979,7 @@
 
                             <div id="taskbarEditPanel" class="form-group hidden" aria-live="polite">
                                 <label>Edit Taskbar Pin</label>
-                                <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--bg-tertiary); border-radius: 6px;">
+                                <div style="display: flex; flex-direction: column; gap: 10px; padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                                     <div style="display: flex; gap: 8px;">
                                         <div style="flex: 1;">
                                             <label for="editTaskbarPinName" style="font-size: 0.75rem; color: var(--text-secondary);">Name *</label>
@@ -1078,7 +1075,7 @@
                     <div class="tab-content" role="tabpanel" id="tab-system" aria-labelledby="tab-btn-system">
                     <p class="section-hint">Step 4: Choose taskbar visibility and File Explorer restrictions.</p>
                     <fieldset class="section">
-                        <legend class="section-header">Taskbar &amp; File Explorer</legend>
+                        <legend class="section-header">SECTION 11: TASKBAR &amp; FILE EXPLORER</legend>
                         <div class="section-content">
                             <div class="form-group">
                                 <div class="checkbox-group">
@@ -1117,7 +1114,7 @@
                     <div class="tab-content" role="tabpanel" id="tab-summary" aria-labelledby="tab-btn-summary">
                     <p class="section-hint">Step 5: Review the summary and export your configuration.</p>
                     <fieldset class="section">
-                            <legend class="section-header">Configuration Summary</legend>
+                            <legend class="section-header">SECTION 12: CONFIGURATION SUMMARY</legend>
                             <div class="section-content">
                                 <div id="summaryNextAction" class="next-action" role="status" aria-live="polite"></div>
                                 <div class="callout callout-compact" data-callout-id="export">
@@ -1127,7 +1124,7 @@
                                 <div class="status info">
                                     <strong>Deployment tip:</strong> The XML output is used as the String value for the AssignedAccess OMA-URI in Intune. The PowerShell script applies the configuration on-demand to a local device.
                                 </div>
-                                <div class="summary-grid" id="summaryGrid" aria-live="polite"></div>
+                                <div class="summary-grid crt-pane" id="summaryGrid" aria-live="polite"></div>
                             </div>
                         </fieldset>
                     </div>
@@ -1141,14 +1138,14 @@
         <!-- Preview Panel -->
         <section class="panel" aria-labelledby="preview-heading">
             <h2 id="preview-heading" class="panel-header">
-                <span>XML Preview</span>
+                <span>SECTION 13: XML PREVIEW</span>
             </h2>
             <div class="panel-content preview-content">
                 <div style="display: flex; justify-content: center; margin-bottom: 6px;">
                     <button type="button" class="btn-secondary btn-small" data-action="copyXml">Copy XML</button>
                 </div>
                 <div id="validationStatus" role="status" aria-live="polite" aria-atomic="true"></div>
-                <pre class="xml-preview crt-terminal" id="xmlPreview" aria-label="Generated XML configuration" tabindex="0">
+                <pre class="xml-preview crt-terminal crt-pane" id="xmlPreview" aria-label="Generated XML configuration" tabindex="0">
                     <!-- XML will be rendered here -->
                 </pre>
             </div>
@@ -1288,33 +1285,33 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
                 <!-- Deployment Flow Tab -->
                 <div class="deploy-content" role="tabpanel" id="deploy-flow" aria-labelledby="deploy-tab-flow">
                     <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: 8px;">
+                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                             <h4 style="margin: 0 0 8px 0;">Flow 1: Deployment decision</h4>
                             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Intune OMA-URI / MDM?</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Intune OMA-URI / MDM?</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Deploy XML only</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Deploy XML only</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">If desktopAppLink pins, ensure shortcuts exist</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">If desktopAppLink pins, ensure shortcuts exist</div>
                             </div>
                             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Not using Intune/MDM</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Not using Intune/MDM</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Local deployment with helper scripts</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Local deployment with helper scripts</div>
                             </div>
                         </div>
-                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: 8px;">
+                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
                             <h4 style="margin: 0 0 8px 0;">Flow 2: Local deployment sequence</h4>
                             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Export artifacts</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Export artifacts</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Run Shortcut Creator (if desktopAppLink pins)</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Shortcut Creator (if desktopAppLink pins)</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Run Edge Manifest Workaround (optional)</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Edge Manifest Workaround (optional)</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Run Apply Assigned Access</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Apply Assigned Access</div>
                                 <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: 6px;">Reboot and validate</div>
+                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Reboot and validate</div>
                             </div>
                         </div>
                         <div style="font-size: 0.75rem; color: var(--text-secondary);">

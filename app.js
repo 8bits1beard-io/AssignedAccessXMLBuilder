@@ -1825,9 +1825,21 @@ function updateProgressRail() {
         system: 'optional',
         export: getExportStatus()
     };
+    const hiddenSteps = new Set();
+    if (state.mode === 'single') {
+        hiddenSteps.add('pins');
+        hiddenSteps.add('system');
+    }
 
     rail.querySelectorAll('.progress-step').forEach(step => {
         const key = step.getAttribute('data-step');
+        if (hiddenSteps.has(key)) {
+            step.classList.add('hidden');
+            step.setAttribute('aria-hidden', 'true');
+            return;
+        }
+        step.classList.remove('hidden');
+        step.setAttribute('aria-hidden', 'false');
         const status = steps[key] || 'pending';
         step.classList.remove('complete', 'ready', 'optional', 'pending', 'current');
         step.classList.add(status);
