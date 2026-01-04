@@ -27,6 +27,7 @@ const SECTION_DEFS = [
 ];
 
 const SECTION_START_INDEX = 0;
+const THEME_STORAGE_KEY = 'ko_theme';
 
 function formatSectionNumber(value) {
     return String(value).padStart(2, '0');
@@ -194,6 +195,33 @@ function updateTabVisibility() {
             switchTab('application');
         }
     }
+}
+
+function getStoredTheme() {
+    return localStorage.getItem(THEME_STORAGE_KEY) || 'fallout';
+}
+
+function updateThemeToggleLabel(theme) {
+    const toggle = dom.get('themeToggle');
+    if (!toggle) return;
+    toggle.textContent = theme === 'fluent' ? 'Theme: Fluent' : 'Theme: Fallout';
+}
+
+function applyTheme(theme) {
+    const root = document.documentElement;
+    if (theme === 'fluent') {
+        root.setAttribute('data-theme', 'fluent');
+    } else {
+        root.removeAttribute('data-theme');
+    }
+    localStorage.setItem(THEME_STORAGE_KEY, theme);
+    updateThemeToggleLabel(theme);
+}
+
+function toggleTheme() {
+    const current = getStoredTheme();
+    const next = current === 'fluent' ? 'fallout' : 'fluent';
+    applyTheme(next);
 }
 
 /* ============================================================================
@@ -393,7 +421,8 @@ const actionHandlers = {
     handleImport,
     handleConfigImport,
     copyProfileId,
-    dismissCallout
+    dismissCallout,
+    toggleTheme
 };
 
 function runAction(action, target, event) {
@@ -3511,6 +3540,7 @@ function positionTooltip(tooltipIcon) {
    ============================================================================ */
 document.addEventListener('DOMContentLoaded', async () => {
     applySectionLabels();
+    applyTheme(getStoredTheme());
 
     // Load presets first
     await loadPresets();

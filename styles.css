@@ -40,6 +40,7 @@
     --type-helper: 0.95rem;
     --type-section: 1.05rem;
     --type-code: 1rem;
+    --page-bg: radial-gradient(circle at top left, #122019 0%, var(--bg-primary) 38%, #070b09 100%);
 }
 
 [data-theme="dark"] {
@@ -70,6 +71,39 @@
     --mica-top: rgba(11, 15, 12, 0.98);
     --mica-bottom: rgba(6, 10, 8, 0.98);
     --acrylic: rgba(12, 18, 14, 0.88);
+}
+
+[data-theme="fluent"] {
+    --bg-primary: #F6F7FB;
+    --bg-secondary: #FFFFFF;
+    --bg-tertiary: #EEF2F7;
+    --text-primary: #1F2430;
+    --text-secondary: #5B6474;
+    --accent: #2563EB;
+    --accent-hover: #1D4ED8;
+    --focus-shadow: rgba(37, 99, 235, 0.18);
+    --success: #2FA36A;
+    --warning: #E3A23E;
+    --error: #D64545;
+    --border: #D7DDE6;
+    --code-bg: #F0F4FA;
+    --code-text: #1F2430;
+    --frame-border: 1px solid var(--border);
+    --frame-radius: 8px;
+    --frame-inset: inset 0 0 0 1px rgba(215, 221, 230, 0.5);
+    --crt-scanline-opacity: 0;
+    --crt-text-glow: none;
+    --crt-inset: inset 0 0 0 1px rgba(215, 221, 230, 0.4);
+    --elev-1: 0 6px 20px rgba(31, 36, 48, 0.08);
+    --elev-2: 0 16px 32px rgba(31, 36, 48, 0.12);
+    --glow: 0 0 0 2px rgba(37, 99, 235, 0.18);
+    --hover-glow: 0 0 0 2px rgba(37, 99, 235, 0.12);
+    --mica-top: rgba(255, 255, 255, 0.95);
+    --mica-bottom: rgba(242, 245, 250, 0.98);
+    --acrylic: rgba(255, 255, 255, 0.9);
+    --font-primary: "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --font-secondary: "Cascadia Mono", "Consolas", "Courier New", monospace;
+    --page-bg: linear-gradient(180deg, #F6F7FB 0%, #EDF1F6 100%);
 }
 
 /* ============================================
@@ -121,7 +155,7 @@
 body {
     font-family: var(--font-primary);
     font-size: var(--type-body);
-    background: radial-gradient(circle at top left, #122019 0%, var(--bg-primary) 38%, #070b09 100%);
+    background: var(--page-bg);
     background-attachment: fixed;
     color: var(--text-primary);
     line-height: 1.55;
@@ -410,7 +444,7 @@ main {
    Header
    ============================================ */
 header {
-    background: linear-gradient(180deg, rgba(16, 25, 21, 0.98), rgba(10, 16, 12, 0.98));
+    background: linear-gradient(180deg, var(--mica-top), var(--mica-bottom));
     border-bottom: 2px solid var(--border);
     padding: 12px 20px 8px;
     display: flex;
@@ -442,6 +476,10 @@ header h1 {
     font-size: 1.1rem;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 .header-text {
