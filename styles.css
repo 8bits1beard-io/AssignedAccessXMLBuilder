@@ -1120,6 +1120,37 @@ legend.section-header {
     flex-direction: column;
 }
 
+.preview-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: var(--frame-radius);
+    border: var(--frame-border);
+    background: var(--bg-tertiary);
+    box-shadow: var(--frame-inset);
+}
+
+.preview-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.preview-meta-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.preview-meta-value {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
 .xml-preview {
     background: var(--code-bg);
     color: var(--code-text);

@@ -96,7 +96,7 @@ function showValidation() {
     const statusDiv = dom.get('validationStatus');
 
     if (errors.length === 0) {
-        statusDiv.innerHTML = '<div class="status success">✓ Configuration is valid</div>';
+        statusDiv.innerHTML = '';
     } else {
         statusDiv.innerHTML = `<div class="status error">
             <strong>Validation Errors:</strong>

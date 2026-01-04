@@ -1995,10 +1995,24 @@ function updatePreview() {
     const edgeWarningComment = edgeWarningPins.length > 0
         ? `# WARNING: Some Edge-backed shortcuts may not display custom name/icon in Assigned Access.\n# Affected pins: ${edgeWarningPins.join(', ')}\n\n`
         : '';
+    const configName = dom.get('configName').value.trim();
+    const generatedAt = new Date();
+    const modeLabel = state.mode === 'single'
+        ? 'Single-App'
+        : state.mode === 'multi'
+            ? 'Multi-App'
+            : 'Restricted Kiosk';
+    dom.get('previewProfileName').textContent = configName || 'Unnamed Profile';
+    dom.get('previewKioskMode').textContent = modeLabel;
+    dom.get('previewAllowedApps').textContent = String(state.allowedApps.length);
+    dom.get('previewStartPins').textContent = String(state.startPins.length);
+    dom.get('previewToolbarPins').textContent = String(state.taskbarPins.length);
+    dom.get('previewGeneratedDate').textContent = generatedAt.toLocaleString();
     dom.get('xmlPreview').textContent = xml;
     updateExportAvailability();
     updateExportDetectedGuidance();
-    showValidation();
+    const isValid = showValidation();
+    dom.get('previewStatus').textContent = isValid ? 'Valid' : 'Errors';
     updateProgressRail();
     updateSummary();
 }
