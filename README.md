@@ -19,7 +19,7 @@ Build Windows Assigned Access (kiosk) XML without hand-editing. Configure modes,
 - Start menu pins, taskbar pins, and Edge site tiles
 - Auto-launch configuration and validation
 - Export: XML, PowerShell deploy script, Start Layout XML, shortcut creator
-- Import/export configuration files (`.aaxb.json`)
+- Import/export configuration files (`.kioskoverseer.json`)
 
 ## Project Structure
 

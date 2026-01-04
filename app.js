@@ -2491,7 +2491,7 @@ function Get-ManifestPaths {
 function Get-RecreatedFiles {
     param([string]$Directory)
     if (-not (Test-Path $Directory)) { return @() }
-    Get-ChildItem -Path $Directory -Filter "msedge.VisualElementsManifest.xml.aaxb.recreated.*" -File -ErrorAction SilentlyContinue |
+    Get-ChildItem -Path $Directory -Filter "msedge.VisualElementsManifest.xml.kioskoverseer.recreated.*" -File -ErrorAction SilentlyContinue |
         Sort-Object LastWriteTime -Descending
 }
 
@@ -2512,7 +2512,7 @@ function Trim-RecreatedFiles {
 function Apply-ManifestRename {
     param([string]$ManifestPath)
     $dir = Split-Path $ManifestPath -Parent
-    $backup = Join-Path $dir "msedge.VisualElementsManifest.xml.aaxb.bak"
+    $backup = Join-Path $dir "msedge.VisualElementsManifest.xml.kioskoverseer.bak"
     if (Test-Path $ManifestPath) {
         if (-not (Test-Path $backup)) {
             try {
@@ -2523,7 +2523,7 @@ function Apply-ManifestRename {
             }
         } else {
             $stamp = Get-Date -Format "yyyyMMdd-HHmmss"
-            $recreated = Join-Path $dir ("msedge.VisualElementsManifest.xml.aaxb.recreated." + $stamp)
+            $recreated = Join-Path $dir ("msedge.VisualElementsManifest.xml.kioskoverseer.recreated." + $stamp)
             try {
                 Rename-Item -Path $ManifestPath -NewName $recreated -ErrorAction Stop
                 Write-Log -Level "WARN" -Event "live_manifest_recreated" -Message "Live manifest renamed because backup already exists" -Data @{ path = $ManifestPath; recreated = $recreated }
@@ -2640,7 +2640,7 @@ function Get-ManifestPaths {
 function Cleanup-Recreated {
     param([string]$Directory)
     if (-not (Test-Path $Directory)) { return }
-    Get-ChildItem -Path $Directory -Filter "msedge.VisualElementsManifest.xml.aaxb.recreated.*" -File -ErrorAction SilentlyContinue |
+    Get-ChildItem -Path $Directory -Filter "msedge.VisualElementsManifest.xml.kioskoverseer.recreated.*" -File -ErrorAction SilentlyContinue |
         ForEach-Object {
             try {
                 Remove-Item $_.FullName -Force -ErrorAction Stop
@@ -2667,7 +2667,7 @@ try {
 $paths = Get-ManifestPaths
 foreach ($path in $paths) {
     $dir = Split-Path $path -Parent
-    $backup = Join-Path $dir "msedge.VisualElementsManifest.xml.aaxb.bak"
+    $backup = Join-Path $dir "msedge.VisualElementsManifest.xml.kioskoverseer.bak"
     if ((Test-Path $backup) -and -not (Test-Path $path)) {
         try {
             Rename-Item -Path $backup -NewName $path -ErrorAction Stop
@@ -2766,9 +2766,9 @@ function getConfigSaveName() {
     const configName = dom.get('configName').value.trim();
     if (configName) {
         const sanitized = configName.replace(/\s+/g, '-').replace(/[<>:"/\\|?*]/g, '');
-        return `AssignedAccess-${sanitized}.aaxb.json`;
+        return `AssignedAccess-${sanitized}.kioskoverseer.json`;
     }
-    return 'AssignedAccessConfig.aaxb.json';
+    return 'AssignedAccessConfig.kioskoverseer.json';
 }
 
 function collectFormValues() {
@@ -2822,7 +2822,7 @@ async function saveConfigAs(existingConfig) {
                 suggestedName: getConfigSaveName(),
                 types: [{
                     description: 'Kiosk Overseer Config',
-                    accept: { 'application/json': ['.aaxb.json', '.json'] }
+                    accept: { 'application/json': ['.kioskoverseer.json', '.json'] }
                 }]
             });
             if (!handle) return;
@@ -2846,10 +2846,10 @@ async function loadConfig() {
         try {
             const [handle] = await window.showOpenFilePicker({
                 multiple: false,
-                types: [{
-                    description: 'Kiosk Overseer Config',
-                    accept: { 'application/json': ['.aaxb.json', '.json'] }
-                }]
+        types: [{
+            description: 'Kiosk Overseer Config',
+            accept: { 'application/json': ['.kioskoverseer.json', '.json'] }
+        }]
             });
             if (!handle) return;
             const file = await handle.getFile();
