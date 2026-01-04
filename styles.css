@@ -1251,9 +1251,9 @@ legend.section-header {
 /* ============================================
    Summary
    ============================================ */
-.summary-grid {
+.summary-overview {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 12px;
     padding: 12px;
     border: var(--frame-border);
@@ -1261,14 +1261,14 @@ legend.section-header {
     background: var(--bg-primary);
 }
 
-.summary-item {
+.summary-card {
     border: var(--frame-border);
     border-radius: var(--frame-radius);
     padding: 10px 12px;
     background: var(--bg-secondary);
 }
 
-.summary-label {
+.summary-card-label {
     font-size: 0.75rem;
     color: var(--text-secondary);
     text-transform: uppercase;
@@ -1276,13 +1276,55 @@ legend.section-header {
     margin-bottom: 6px;
 }
 
-.summary-value {
+.summary-card-value {
     font-size: 0.9rem;
     color: var(--text-primary);
     white-space: pre-wrap;
 }
 
-.summary-value ul {
+.summary-details {
+    display: grid;
+    gap: 10px;
+    margin-top: 12px;
+}
+
+.summary-panel {
+    border: var(--frame-border);
+    border-radius: var(--frame-radius);
+    background: var(--bg-secondary);
+    padding: 10px 12px;
+}
+
+.summary-panel summary {
+    cursor: pointer;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-primary);
+}
+
+.summary-panel summary::-webkit-details-marker {
+    display: none;
+}
+
+.summary-panel summary:before {
+    content: "+";
+    display: inline-block;
+    margin-right: 8px;
+    color: var(--accent);
+}
+
+.summary-panel[open] summary:before {
+    content: "–";
+}
+
+.summary-panel-body {
+    margin-top: 10px;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.summary-panel-body ul {
     margin: 0;
     padding-left: 18px;
 }

@@ -84,8 +84,9 @@ function formatAutoLaunchSummary() {
 }
 
 function updateSummary() {
-    const summaryGrid = dom.get('summaryGrid');
-    if (!summaryGrid) return;
+    const summaryOverview = dom.get('summaryOverview');
+    const summaryDetails = dom.get('summaryDetails');
+    if (!summaryOverview || !summaryDetails) return;
 
     const configName = dom.get('configName').value.trim() || 'Unnamed';
     const autoLogon = state.accountType === 'auto';
@@ -106,23 +107,65 @@ function updateSummary() {
         accountSummary = displayName ? `Auto Logon (${displayName})` : 'Auto Logon (Managed)';
     }
 
-    const rows = [
+    const exportStatus = getExportStatus() === 'ready' ? 'Ready' : 'Needs Attention';
+    const allowedAppsValue = state.mode === 'single' ? 'Single App' : String(state.allowedApps.length);
+    const pinsValue = state.mode === 'single'
+        ? 'N/A'
+        : `Start: ${state.startPins.length} / Taskbar: ${state.taskbarPins.length}`;
+
+    summaryOverview.innerHTML = [
         { label: 'Name', value: escapeXml(configName) },
         { label: 'Kiosk Type', value: escapeXml(formatKioskModeSummary()) },
         { label: 'Account', value: escapeXml(accountSummary) },
-        { label: 'Allowed Apps', value: formatAllowedAppsSummary() },
-        { label: 'Start Menu Pins', value: formatStartPinsSummary() },
-        { label: 'Auto Logon', value: autoLogon ? 'Yes' : 'No' },
-        { label: 'Auto Logon Username', value: autoLogon ? escapeXml(displayName || 'Managed kiosk account') : 'N/A' },
-        { label: 'Auto-Launch App', value: escapeXml(formatAutoLaunchSummary()) }
-    ];
-
-    summaryGrid.innerHTML = rows.map(row => `
-        <div class="summary-item">
-            <div class="summary-label">${row.label}</div>
-            <div class="summary-value">${row.value}</div>
+        { label: 'Allowed Apps', value: escapeXml(allowedAppsValue) },
+        { label: 'Pins', value: escapeXml(pinsValue) },
+        { label: 'Export Status', value: escapeXml(exportStatus) }
+    ].map(row => `
+        <div class="summary-card">
+            <div class="summary-card-label">${row.label}</div>
+            <div class="summary-card-value">${row.value}</div>
         </div>
     `).join('');
+
+    const showTaskbar = dom.get('showTaskbar')?.checked;
+    const fileExplorerLabel = dom.get('fileExplorerAccess')?.selectedOptions?.[0]?.textContent || 'Unknown';
+
+    const allowedAppsDetails = state.mode === 'single'
+        ? 'Single-app mode uses the kiosk app selection.'
+        : formatAllowedAppsSummary();
+    const startPinsDetails = state.mode === 'single'
+        ? 'N/A (single-app mode)'
+        : formatStartPinsSummary();
+
+    summaryDetails.innerHTML = `
+        <details class="summary-panel" open>
+            <summary>Allowed Apps</summary>
+            <div class="summary-panel-body">${allowedAppsDetails}</div>
+        </details>
+        <details class="summary-panel">
+            <summary>Start Menu Pins</summary>
+            <div class="summary-panel-body">${startPinsDetails}</div>
+        </details>
+        <details class="summary-panel">
+            <summary>Auto-Launch App</summary>
+            <div class="summary-panel-body">${escapeXml(formatAutoLaunchSummary())}</div>
+        </details>
+        <details class="summary-panel">
+            <summary>Account Details</summary>
+            <div class="summary-panel-body">
+                <div><strong>Account:</strong> ${escapeXml(accountSummary)}</div>
+                <div><strong>Auto Logon:</strong> ${autoLogon ? 'Yes' : 'No'}</div>
+                <div><strong>User:</strong> ${autoLogon ? escapeXml(displayName || 'Managed kiosk account') : 'N/A'}</div>
+            </div>
+        </details>
+        <details class="summary-panel">
+            <summary>System Access</summary>
+            <div class="summary-panel-body">
+                <div><strong>Show Taskbar:</strong> ${showTaskbar ? 'Enabled' : 'Hidden'}</div>
+                <div><strong>File Explorer:</strong> ${escapeXml(fileExplorerLabel)}</div>
+            </div>
+        </details>
+    `;
 
     updateNextActionBanner();
 }

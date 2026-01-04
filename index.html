@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=1.0.3">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -1161,7 +1161,8 @@
                                 <div class="status info">
                                     <strong>TIP:</strong> The XML output is used as the String value for the AssignedAccess OMA-URI in Intune. The PowerShell script applies the configuration on-demand to a local device.
                                 </div>
-                                <div class="summary-grid" id="summaryGrid" aria-live="polite"></div>
+                                <div class="summary-overview" id="summaryOverview" aria-live="polite"></div>
+                                <div class="summary-details" id="summaryDetails"></div>
                                 </div>
                             </div>
                         </fieldset>
@@ -1393,12 +1394,12 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js"></script>
-    <script src="state.js"></script>
-    <script src="helpers.js"></script>
-    <script src="summary.js"></script>
-    <script src="xml.js"></script>
-    <script src="validation.js"></script>
-    <script src="app.js"></script>
+    <script src="dom.js?v=1.0.3"></script>
+    <script src="state.js?v=1.0.3"></script>
+    <script src="helpers.js?v=1.0.3"></script>
+    <script src="summary.js?v=1.0.3"></script>
+    <script src="xml.js?v=1.0.3"></script>
+    <script src="validation.js?v=1.0.3"></script>
+    <script src="app.js?v=1.0.3"></script>
 </body>
 </html>
