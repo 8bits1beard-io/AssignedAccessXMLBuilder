@@ -2833,7 +2833,8 @@ async function saveConfigAs(existingConfig) {
         } catch (e) {
             if (e && e.name === 'AbortError') return;
             console.error('Failed to save configuration:', e);
-            alert('Could not save configuration.');
+            downloadFile(JSON.stringify(config, null, 2), getConfigSaveName(), 'application/json');
+            alert('File System API unavailable. Downloaded configuration instead.');
             return;
         }
     }
