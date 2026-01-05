@@ -45,6 +45,41 @@ function formatStartPinsSummary() {
     return `<ul>${items}</ul>`;
 }
 
+function formatTaskbarPinsSummary() {
+    if (state.mode === 'single') {
+        return 'N/A (single-app mode)';
+    }
+    if (state.taskbarPins.length === 0) {
+        return 'None';
+    }
+    const items = state.taskbarPins.map(pin => {
+        const name = pin.name || 'Unnamed pin';
+        const target = pin.pinType === 'packagedAppId'
+            ? pin.packagedAppId
+            : (pin.systemShortcut || pin.target || '');
+        const args = pin.args ? ` (args: ${pin.args})` : '';
+        const details = target ? ` (${target})` : '';
+        return `<li>${escapeXml(name)}${escapeXml(details)}${escapeXml(args)}</li>`;
+    }).join('');
+    return `<ul>${items}</ul>`;
+}
+
+function formatSecondaryTilesSummary() {
+    if (state.mode === 'single') {
+        return 'N/A (single-app mode)';
+    }
+    const tiles = state.startPins.filter(pin => pin.pinType === 'secondaryTile');
+    if (tiles.length === 0) {
+        return 'None';
+    }
+    const items = tiles.map(pin => {
+        const name = pin.name || 'Unnamed tile';
+        const url = pin.args ? ` (url: ${pin.args})` : '';
+        return `<li>${escapeXml(name)}${escapeXml(url)}</li>`;
+    }).join('');
+    return `<ul>${items}</ul>`;
+}
+
 function formatAutoLaunchSummary() {
     if (state.mode === 'single') {
         const appType = dom.get('appType').value;
@@ -137,6 +172,12 @@ function updateSummary() {
     const startPinsDetails = state.mode === 'single'
         ? 'N/A (single-app mode)'
         : formatStartPinsSummary();
+    const taskbarPinsDetails = state.mode === 'single'
+        ? 'N/A (single-app mode)'
+        : formatTaskbarPinsSummary();
+    const secondaryTilesDetails = state.mode === 'single'
+        ? 'N/A (single-app mode)'
+        : formatSecondaryTilesSummary();
 
     summaryDetails.innerHTML = `
         <details class="summary-panel" open>
@@ -146,6 +187,14 @@ function updateSummary() {
         <details class="summary-panel">
             <summary>Start Menu Pins</summary>
             <div class="summary-panel-body">${startPinsDetails}</div>
+        </details>
+        <details class="summary-panel">
+            <summary>Secondary Tiles</summary>
+            <div class="summary-panel-body">${secondaryTilesDetails}</div>
+        </details>
+        <details class="summary-panel">
+            <summary>Taskbar Pins</summary>
+            <div class="summary-panel-body">${taskbarPinsDetails}</div>
         </details>
         <details class="summary-panel">
             <summary>Auto-Launch App</summary>
