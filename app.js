@@ -2816,54 +2816,10 @@ async function writeConfigToHandle(handle, config) {
 
 async function saveConfigAs(existingConfig) {
     const config = existingConfig || buildConfigSnapshot();
-    if ('showSaveFilePicker' in window) {
-        try {
-            const handle = await window.showSaveFilePicker({
-                suggestedName: getConfigSaveName(),
-                types: [{
-                    description: 'Kiosk Overseer Config',
-                    accept: { 'application/json': ['.kioskoverseer.json', '.json'] }
-                }]
-            });
-            if (!handle) return;
-            await writeConfigToHandle(handle, config);
-            configFileHandle = handle;
-            alert('Configuration saved.');
-            return;
-        } catch (e) {
-            if (e && e.name === 'AbortError') return;
-            console.error('Failed to save configuration:', e);
-            downloadFile(JSON.stringify(config, null, 2), getConfigSaveName(), 'application/json');
-            alert('File System API unavailable. Downloaded configuration instead.');
-            return;
-        }
-    }
-
     downloadFile(JSON.stringify(config, null, 2), getConfigSaveName(), 'application/json');
 }
 
 async function loadConfig() {
-    if ('showOpenFilePicker' in window) {
-        try {
-            const [handle] = await window.showOpenFilePicker({
-                multiple: false,
-        types: [{
-            description: 'Kiosk Overseer Config',
-            accept: { 'application/json': ['.kioskoverseer.json', '.json'] }
-        }]
-            });
-            if (!handle) return;
-            const file = await handle.getFile();
-            await loadConfigFile(file, handle);
-            return;
-        } catch (e) {
-            if (e && e.name === 'AbortError') return;
-            console.error('Failed to open configuration:', e);
-            alert('Could not open configuration.');
-            return;
-        }
-    }
-
     dom.get('configImportInput').click();
 }
 
