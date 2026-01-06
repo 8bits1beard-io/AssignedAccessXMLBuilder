@@ -584,6 +584,9 @@
         const commandForm = document.getElementById('commandForm');
         const commandInput = document.getElementById('commandInput');
         const gameContainer = document.getElementById('gameContainer');
+        const helloAudio = new Audio('404/falk_hello-joshua.wav');
+        const winAudio = new Audio('404/a-good-game-of-chess.wav');
+        const drawAudio = new Audio('404/strang-game-the-only-winnind-move-is-not-to-play.wav');
         const joshuaMessages = [
             "INTERESTING MOVE",
             "CALCULATING OPTIMAL STRATEGY",
@@ -715,6 +718,7 @@
                     document.getElementById('human-score').textContent = humanScore;
                 } else {
                     statusDisplay.textContent = "JOSHUA WINS. AS EXPECTED";
+                    playAudio(winAudio);
                     joshuaScore++;
                     document.getElementById('joshua-score').textContent = joshuaScore;
                 }
@@ -724,6 +728,7 @@
             if (!board.includes('')) {
                 gameActive = false;
                 statusDisplay.textContent = "A STRANGE GAME. THE ONLY WINNING MOVE IS NOT TO PLAY";
+                playAudio(drawAudio);
                 drawScore++;
                 document.getElementById('draw-score').textContent = drawScore;
             }
@@ -733,6 +738,12 @@
             combination.forEach(index => {
                 document.querySelector(`[data-index="${index}"]`).classList.add('winner');
             });
+        }
+
+        function playAudio(audio) {
+            if (!audio) return;
+            audio.currentTime = 0;
+            audio.play().catch(() => {});
         }
 
         function normalizeCommand(value) {
@@ -823,10 +834,13 @@
             }
         }
         
-        // Speak after a short delay when page loads
+        // Play hello audio, then speak after a short delay
         setTimeout(() => {
-            speakGreeting();
-        }, 1500);
+            playAudio(helloAudio);
+            setTimeout(() => {
+                speakGreeting();
+            }, 1000);
+        }, 200);
         
         // Add some random flicker effect
         setInterval(() => {
