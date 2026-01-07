@@ -141,13 +141,15 @@ function generateMultiAppProfile() {
         xml += `            <v5:StartPins><![CDATA[${JSON.stringify(pinsJson)}]]></v5:StartPins>\n`;
     }
 
-    // Taskbar
-    const showTaskbar = dom.get('showTaskbar').checked;
-    xml += `            <Taskbar ShowTaskbar="${showTaskbar}"/>\n`;
+    // Taskbar (multi-app/restricted only)
+    if (state.mode === 'multi' || state.mode === 'restricted') {
+        const showTaskbar = dom.get('showTaskbar').checked;
+        xml += `            <Taskbar ShowTaskbar="${showTaskbar}"/>\n`;
 
-    const taskbarLayoutXml = buildTaskbarLayoutXml();
-    if (taskbarLayoutXml) {
-        xml += `            <v5:TaskbarLayout><![CDATA[${taskbarLayoutXml}]]></v5:TaskbarLayout>\n`;
+        const taskbarLayoutXml = buildTaskbarLayoutXml();
+        if (taskbarLayoutXml) {
+            xml += `            <v5:TaskbarLayout><![CDATA[${taskbarLayoutXml}]]></v5:TaskbarLayout>\n`;
+        }
     }
 
     return xml;

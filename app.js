@@ -197,6 +197,19 @@ function updateTabVisibility() {
     }
 }
 
+function updateTaskbarControlsVisibility() {
+    const legend = document.querySelector('[data-section-key="taskbarControls"]');
+    if (!legend) return;
+    const fieldset = legend.closest('fieldset');
+    if (!fieldset) return;
+    const hide = state.mode === 'single';
+    fieldset.classList.toggle('hidden', hide);
+    fieldset.setAttribute('aria-hidden', hide.toString());
+    fieldset.querySelectorAll('input, select, textarea, button').forEach(control => {
+        control.disabled = hide;
+    });
+}
+
 function getStoredTheme() {
     return localStorage.getItem(THEME_STORAGE_KEY) || 'fallout';
 }
@@ -255,6 +268,7 @@ function setMode(mode) {
 
     // Update tab visibility based on mode
     updateTabVisibility();
+    updateTaskbarControlsVisibility();
 
     updateKioskModeHint();
 
@@ -3530,6 +3544,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     generateGuid();
     initCallouts();
     updateTabVisibility();
+    updateTaskbarControlsVisibility();
     updateKioskModeHint();
     updatePreview();
     updateEdgeTileSourceUI();

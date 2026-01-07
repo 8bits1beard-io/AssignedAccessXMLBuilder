@@ -19,7 +19,8 @@ Technical reference for Kiosk Overseer.
    - **Fullscreen** — No browser UI (digital signage)
    - **Public Browsing** — Address bar and navigation visible
 5. Set **Idle Timeout** (optional) — Reset to home URL after inactivity
-6. Optionally enable **Breakout Sequence** for technician access (Ctrl+Alt+K)
+6. Taskbar settings are not available in Single-App mode (taskbar is hidden by design)
+7. Optionally enable **Breakout Sequence** for technician access (Ctrl+Alt+K)
 7. Configure account (Auto-logon recommended)
 8. Export
 
