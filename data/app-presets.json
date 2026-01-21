@@ -15,7 +15,7 @@
         "fileExplorer": { "type": "path", "value": "C:\\Windows\\explorer.exe" },
         "controlPanel": { "type": "path", "value": "C:\\Windows\\System32\\control.exe" },
         "printers": { "type": "path", "value": "C:\\Windows\\System32\\control.exe" },
-        "printSpooler": { "type": "path", "value": "C:\\Windows\\System32\\spoolsv.exe" },
+        "printSpooler": { "type": "path", "value": "C:\\Windows\\explorer.exe", "args": "shell:PrintersFolder" },
         "cmd": { "type": "path", "value": "C:\\Windows\\System32\\cmd.exe" },
         "powershell": { "type": "path", "value": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" },
         "powershell7": { "type": "path", "value": "C:\\Program Files\\PowerShell\\7\\pwsh.exe" },
