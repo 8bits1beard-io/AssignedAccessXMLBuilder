@@ -112,7 +112,7 @@ Kiosk args vary by browser:
 When changing UI or JS, update version query strings in `index.html` to bust browser cache:
 
 ```html
-<script src="app.js?v=1.2.0"></script>
+<script src="app.js?v=1.1.0"></script>
 ```
 
 ## Data Files
