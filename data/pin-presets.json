@@ -74,10 +74,10 @@
             "iconPath": ""
         },
         "printSpooler": {
-            "name": "Print Spooler",
+            "name": "Print Queue",
             "pinType": "desktopAppLink",
-            "target": "C:\\Windows\\System32\\spoolsv.exe",
-            "args": "",
+            "target": "C:\\Windows\\explorer.exe",
+            "args": "shell:PrintersFolder",
             "workingDir": "",
             "iconPath": ""
         },
