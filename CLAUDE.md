@@ -124,6 +124,12 @@ Update versions after changes to:
 
 **ALWAYS update ALL of these together** - never update just one:
 
+1. **Header build version** (displays to user):
+```html
+KIOSK OVERSEER // BUILD X.X.X
+```
+
+2. **All file version query strings**:
 ```html
 <link rel="stylesheet" href="styles.css?v=X.X.X">
 ...
@@ -138,9 +144,9 @@ Update versions after changes to:
 <script src="config.js?v=X.X.X"></script>
 ```
 
-Increment the patch version (e.g., `1.1.2` → `1.1.3`) for all files in sync.
+Increment the patch version (e.g., `1.1.2` → `1.1.3`) for all locations in sync.
 
-**Example:** If you modify only `app.js` and `index.html`, you still update ALL 10 version strings from `?v=1.1.2` to `?v=1.1.3`.
+**Example:** If you modify only `app.js` and `index.html`, you still update ALL 11 version locations (1 header + 10 file query strings) from `1.1.2` to `1.1.3`.
 
 ## Data Files
 
