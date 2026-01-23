@@ -1462,6 +1462,23 @@ try {
         } catch {
             Write-Log -Action "Security log size update failed" -Status "Warning" -Message $_.Exception.Message
         }
+
+        # Clear existing AssignedAccess configuration
+        Write-Log -Action "Clearing existing AssignedAccess" -Status "Info"
+        try {
+            $currentConfig = $obj.Configuration
+            if ($currentConfig -and $currentConfig.Trim() -ne "") {
+                $obj.Configuration = ""
+                Set-CimInstance -CimInstance $obj -ErrorAction Stop
+                Write-Log -Action "Existing configuration cleared" -Status "Success"
+                # Re-fetch the object for the new configuration
+                $obj = Get-CimInstance -Namespace "root\\cimv2\\mdm\\dmmap" -ClassName "MDM_AssignedAccess" -ErrorAction Stop
+            } else {
+                Write-Log -Action "No existing configuration" -Status "Info" -Message "Skipping clear step"
+            }
+        } catch {
+            Write-Log -Action "Clear existing configuration" -Status "Warning" -Message $_.Exception.Message
+        }
     }
 
     # Create Start Menu shortcuts
