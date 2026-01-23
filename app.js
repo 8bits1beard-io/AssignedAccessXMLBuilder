@@ -1536,7 +1536,7 @@ catch {
     // Also download the README summary
     const readme = generateReadme();
     setTimeout(() => {
-        downloadFile(readme, getConfigFileName('md'), 'text/markdown');
+        downloadFile(readme, 'README.md', 'text/markdown');
     }, 100);
 }
 
