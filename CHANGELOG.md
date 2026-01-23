@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Overseer are documented here.
 
+## [1.2.8] - 2026-01-23
+
+### Removed
+- `--allow-file-access-from-files` browser argument (ineffective when Edge URLBlocklist policy blocks file:// URLs)
+
 ## [1.2.6] - 2026-01-23
 
 ### Changed

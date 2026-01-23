@@ -108,37 +108,28 @@ function buildLaunchUrl(sourceType, urlValue, filePathValue, fallbackUrl) {
     return urlValue || fallbackUrl || '';
 }
 
-function isFileUrl(url) {
-    return url && url.toLowerCase().startsWith('file://');
-}
-
 function buildEdgeKioskArgs(url, kioskType, idleTimeout) {
     let args = `--kiosk ${url} --edge-kiosk-type=${kioskType} --no-first-run`;
     if (idleTimeout && idleTimeout > 0) {
         args += ` --kiosk-idle-timeout-minutes=${idleTimeout}`;
-    }
-    // Allow local file access for file:// URLs
-    if (isFileUrl(url)) {
-        args += ' --allow-file-access-from-files';
     }
     return args;
 }
 
 function buildBrowserKioskArgs(browser, url, kioskType) {
     if (!url) return '';
-    const fileAccessFlag = isFileUrl(url) ? ' --allow-file-access-from-files' : '';
     if (browser === 'edge') {
         const mode = kioskType || 'fullscreen';
         return buildEdgeKioskArgs(url, mode, 0);
     }
     if (browser === 'chrome') {
-        return `--kiosk ${url} --no-first-run${fileAccessFlag}`;
+        return `--kiosk ${url} --no-first-run`;
     }
     if (browser === 'brave') {
-        return `--kiosk ${url} --no-first-run${fileAccessFlag}`;
+        return `--kiosk ${url} --no-first-run`;
     }
     if (browser === 'island') {
-        return `--kiosk ${url} --no-first-run${fileAccessFlag}`;
+        return `--kiosk ${url} --no-first-run`;
     }
     if (browser === 'firefox') {
         return `--kiosk ${url}`;

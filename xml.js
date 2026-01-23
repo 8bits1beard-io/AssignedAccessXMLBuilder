@@ -100,19 +100,7 @@ function generateMultiAppProfile() {
                 attrs += ` rs5:AutoLaunchArguments="${escapeXml(args)}"`;
             } else if (app.type === 'path') {
                 // Non-Edge Win32 app - add arguments if specified
-                let win32Args = dom.get('win32AutoLaunchArgs').value.trim();
-
-                // For Chrome/Brave, auto-add file access flag if using file:// URL
-                const isChrome = isChromeApp(app.value);
-                const isBrave = isBraveApp(app.value);
-                if ((isChrome || isBrave) && win32Args) {
-                    const hasFileUrl = win32Args.toLowerCase().includes('file://');
-                    const hasFileAccessFlag = win32Args.toLowerCase().includes('--allow-file-access-from-files');
-                    if (hasFileUrl && !hasFileAccessFlag) {
-                        win32Args += ' --allow-file-access-from-files';
-                    }
-                }
-
+                const win32Args = dom.get('win32AutoLaunchArgs').value.trim();
                 if (win32Args) {
                     attrs += ` rs5:AutoLaunchArguments="${escapeXml(win32Args)}"`;
                 }
