@@ -363,9 +363,23 @@ const actionHandlers = {
     toggleTheme
 };
 
+// Debounce guard for download actions to prevent double-triggering
+const actionDebounce = new Map();
+const DEBOUNCE_MS = 500;
+
 function runAction(action, target, event) {
     const handler = actionHandlers[action];
     if (!handler) return;
+
+    // Debounce download actions to prevent double-triggering
+    if (action.startsWith('download')) {
+        const lastRun = actionDebounce.get(action);
+        const now = Date.now();
+        if (lastRun && (now - lastRun) < DEBOUNCE_MS) {
+            return;
+        }
+        actionDebounce.set(action, now);
+    }
 
     const arg = target?.dataset?.arg;
     if (action === 'handleConfigImport') {
