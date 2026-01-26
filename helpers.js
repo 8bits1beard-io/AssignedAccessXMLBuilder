@@ -139,3 +139,46 @@ function buildBrowserKioskArgs(browser, url, kioskType) {
     }
     return '';
 }
+
+function parseEdgeKioskArgs(args) {
+    const result = {
+        mode: 'standard',
+        url: '',
+        sourceType: 'url',
+        idleTimeout: 0
+    };
+
+    if (!args || typeof args !== 'string') return result;
+
+    // Check if this has kiosk args
+    const kioskMatch = args.match(/--kiosk\s+(\S+)/);
+    if (!kioskMatch) return result;
+
+    result.url = kioskMatch[1];
+
+    // Determine source type (file:// vs url)
+    if (result.url.toLowerCase().startsWith('file:///')) {
+        result.sourceType = 'file';
+    }
+
+    // Check for edge kiosk type
+    const kioskTypeMatch = args.match(/--edge-kiosk-type=(\S+)/);
+    if (kioskTypeMatch) {
+        if (kioskTypeMatch[1] === 'public-browsing') {
+            result.mode = 'kioskPublic';
+        } else {
+            result.mode = 'kioskFullscreen';
+        }
+    } else if (kioskMatch) {
+        // Has --kiosk but no --edge-kiosk-type (Chrome/Brave/Firefox/Island style)
+        result.mode = 'kioskFullscreen';
+    }
+
+    // Check for idle timeout
+    const idleMatch = args.match(/--kiosk-idle-timeout-minutes=(\d+)/);
+    if (idleMatch) {
+        result.idleTimeout = parseInt(idleMatch[1], 10);
+    }
+
+    return result;
+}
