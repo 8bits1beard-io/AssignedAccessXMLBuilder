@@ -1508,6 +1508,27 @@ ${watchdogPs}
             Write-Log -Action "Security log size update failed" -Status "Warning" -Message $_.Exception.Message
         }
 
+        # Enable diagnostic event log channels for Assigned Access and AppLocker
+        Write-Log -Action "Enable diagnostic event logs" -Status "Info"
+        $diagLogs = @(
+            'Microsoft-Windows-AssignedAccess/Operational',
+            'Microsoft-Windows-AssignedAccess/Admin',
+            'Microsoft-Windows-AppLocker/EXE and DLL',
+            'Microsoft-Windows-AppLocker/MSI and Script',
+            'Microsoft-Windows-AppLocker/Packaged app-Execution',
+            'Microsoft-Windows-AppLocker/Packaged app-Deployment',
+            'Microsoft-Windows-AppXDeployment/Operational',
+            'Microsoft-Windows-AppXDeploymentServer/Operational'
+        )
+        foreach ($logName in $diagLogs) {
+            try {
+                wevtutil sl $logName /e:true 2>$null
+                Write-Log -Action "Enabled log: $logName" -Status "Success"
+            } catch {
+                Write-Log -Action "Enable log: $logName" -Status "Warning" -Message $_.Exception.Message
+            }
+        }
+
         # Clear existing AssignedAccess configuration
         Write-Log -Action "Clearing existing AssignedAccess" -Status "Info"
         try {
