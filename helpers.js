@@ -79,6 +79,11 @@ function escapeXml(str) {
     });
 }
 
+function escapeAttr(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
+
 function truncate(str, len) {
     if (!str) return '';
     return str.length > len ? str.substring(0, len - 3) + '...' : str;

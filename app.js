@@ -190,21 +190,25 @@ function updateTabVisibility() {
     if (applicationTab) {
         applicationTab.classList.toggle('hidden', !isMultiOrRestricted);
         applicationTab.disabled = !isMultiOrRestricted;
+        applicationTab.setAttribute('aria-disabled', (!isMultiOrRestricted).toString());
         applicationTab.setAttribute('aria-hidden', !isMultiOrRestricted);
     }
     if (startMenuTab) {
         startMenuTab.classList.toggle('hidden', !isMultiOrRestricted);
         startMenuTab.disabled = !isMultiOrRestricted;
+        startMenuTab.setAttribute('aria-disabled', (!isMultiOrRestricted).toString());
         startMenuTab.setAttribute('aria-hidden', !isMultiOrRestricted);
     }
     if (taskbarTab) {
         taskbarTab.classList.toggle('hidden', !isMultiOrRestricted);
         taskbarTab.disabled = !isMultiOrRestricted;
+        taskbarTab.setAttribute('aria-disabled', (!isMultiOrRestricted).toString());
         taskbarTab.setAttribute('aria-hidden', !isMultiOrRestricted);
     }
     if (summaryTab) {
         summaryTab.classList.toggle('hidden', !isMultiOrRestricted);
         summaryTab.disabled = !isMultiOrRestricted;
+        summaryTab.setAttribute('aria-disabled', (!isMultiOrRestricted).toString());
         summaryTab.setAttribute('aria-hidden', !isMultiOrRestricted);
     }
 
@@ -2487,6 +2491,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         header.classList.toggle('collapsed');
         content.classList.toggle('collapsed');
+        const isExpanded = !header.classList.contains('collapsed');
+        header.setAttribute('aria-expanded', isExpanded.toString());
     });
 
     document.addEventListener('change', (event) => {

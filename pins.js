@@ -180,12 +180,12 @@ function renderPinListForType(listType) {
         const editAction = listType === 'start' ? 'editPin' : 'editTaskbarPin';
         const removeAction = listType === 'start' ? 'removePin' : 'removeTaskbarPin';
         const duplicateBtn = config.supportsDuplicate
-            ? `<button type="button" class="btn-icon btn-small" data-action="duplicatePin" data-arg="${i}" aria-label="Duplicate ${escapeXml(pin.name)}"><span aria-hidden="true">⧉</span></button>`
+            ? `<button type="button" class="btn-icon btn-small" data-action="duplicatePin" data-arg="${i}" aria-label="Duplicate ${escapeAttr(pin.name)}"><span aria-hidden="true">⧉</span></button>`
             : '';
 
         // Copy to Taskbar button - only for Start pins that are valid taskbar types (not secondary tiles)
         const copyToTaskbarBtn = (listType === 'start' && (pin.pinType === 'desktopAppLink' || pin.pinType === 'packagedAppId'))
-            ? `<button type="button" class="btn-icon btn-small" data-action="copyPinToTaskbar" data-arg="${i}" aria-label="Copy ${escapeXml(pin.name)} to Taskbar" title="Copy to Taskbar"><span aria-hidden="true">⤵</span></button>`
+            ? `<button type="button" class="btn-icon btn-small" data-action="copyPinToTaskbar" data-arg="${i}" aria-label="Copy ${escapeAttr(pin.name)} to Taskbar" title="Copy to Taskbar"><span aria-hidden="true">⤵</span></button>`
             : '';
 
         return `
@@ -196,18 +196,18 @@ function renderPinListForType(listType) {
                 ${edgeWarning}
             </div>
             <div class="pin-actions">
-                <button type="button" class="btn-icon btn-small" data-action="${moveUpAction}" data-arg="${i}" aria-label="Move ${escapeXml(pin.name || 'pin')} up" ${i === 0 ? 'disabled' : ''}>
+                <button type="button" class="btn-icon btn-small" data-action="${moveUpAction}" data-arg="${i}" aria-label="Move ${escapeAttr(pin.name || 'pin')} up" ${i === 0 ? 'disabled' : ''}>
                     <span aria-hidden="true">↑</span>
                 </button>
-                <button type="button" class="btn-icon btn-small" data-action="${moveDownAction}" data-arg="${i}" aria-label="Move ${escapeXml(pin.name || 'pin')} down" ${i === displayPins.length - 1 ? 'disabled' : ''}>
+                <button type="button" class="btn-icon btn-small" data-action="${moveDownAction}" data-arg="${i}" aria-label="Move ${escapeAttr(pin.name || 'pin')} down" ${i === displayPins.length - 1 ? 'disabled' : ''}>
                     <span aria-hidden="true">↓</span>
                 </button>
                 ${duplicateBtn}
                 ${copyToTaskbarBtn}
-                <button type="button" class="btn-icon btn-small" data-action="${editAction}" data-arg="${i}" aria-label="Edit ${escapeXml(pin.name || 'pin')}">
+                <button type="button" class="btn-icon btn-small" data-action="${editAction}" data-arg="${i}" aria-label="Edit ${escapeAttr(pin.name || 'pin')}">
                     <span aria-hidden="true">✎</span>
                 </button>
-                <button type="button" class="remove-btn" data-action="${removeAction}" data-arg="${i}" aria-label="Remove ${escapeXml(pin.name || 'pin')}">
+                <button type="button" class="remove-btn" data-action="${removeAction}" data-arg="${i}" aria-label="Remove ${escapeAttr(pin.name || 'pin')}">
                     <span aria-hidden="true">✕</span>
                 </button>
             </div>

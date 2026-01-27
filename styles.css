@@ -158,7 +158,7 @@
     --bg-secondary: #101915;
     --bg-tertiary: #0f1512;
     --text-primary: #63FF9A;
-    --text-secondary: #3FAF72;
+    --text-secondary: #57C484;
     --accent: #8AFFC1;
     --accent-hover: #b7ffda;
     --focus-shadow: rgba(138, 255, 193, 0.3);
@@ -1605,6 +1605,16 @@ legend.section-header {
 .xml-legend-color.taskbar { background: rgba(255, 170, 100, 0.5); }
 .xml-legend-color.breakout { background: rgba(255, 100, 100, 0.5); }
 .xml-legend-color.configs { background: rgba(100, 200, 200, 0.5); }
+
+/* Distinct borders for color-blind accessibility */
+.xml-legend-color.profile { border: 2px solid rgba(138, 200, 255, 0.9); }
+.xml-legend-color.kioskapp { border: 2px solid rgba(255, 138, 200, 0.9); border-style: dashed; }
+.xml-legend-color.allowedapps { border: 2px solid rgba(138, 255, 154, 0.9); border-style: dotted; }
+.xml-legend-color.fileexplorer { border: 2px solid rgba(255, 200, 87, 0.9); }
+.xml-legend-color.startpins { border: 2px solid rgba(200, 138, 255, 0.9); border-style: dashed; }
+.xml-legend-color.taskbar { border: 2px solid rgba(255, 170, 100, 0.9); border-style: dotted; }
+.xml-legend-color.breakout { border: 2px solid rgba(255, 100, 100, 0.9); border-style: double; }
+.xml-legend-color.configs { border: 2px solid rgba(100, 200, 200, 0.9); border-style: double; }
 
 [data-theme="fluent"] .xml-legend-color.profile { background: rgba(37, 99, 235, 0.6); }
 [data-theme="fluent"] .xml-legend-color.kioskapp { background: rgba(219, 39, 119, 0.5); }
