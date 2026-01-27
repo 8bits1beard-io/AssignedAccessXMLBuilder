@@ -12,7 +12,7 @@ All notable changes to Kiosk Overseer are documented here.
 ### Added
 - Taskbar Pins section in Configuration Summary
 - Desktop Wallpaper section in Configuration Summary (solid color or image path)
-- Browser Watchdog section in Configuration Summary (process name, poll interval, task name)
+- App Watchdog section in Configuration Summary (process name, poll interval, task name)
 - App type labels (Win32/UWP) in allowed applications list
 - Edge source type (URL vs Local File) shown in browser settings
 - Code-formatted paths and GUIDs for readability
@@ -38,11 +38,11 @@ All notable changes to Kiosk Overseer are documented here.
 
 ### Added
 - Desktop wallpaper configuration for multi-app and restricted kiosk modes (solid color or image path)
-- Browser Watchdog feature: optional scheduled task that monitors and relaunches the auto-launch browser if closed (e.g., by Intune idle timeout policy)
+- App Watchdog feature: optional scheduled task that monitors and relaunches the auto-launch app if closed (e.g., by Intune idle timeout policy)
 - Color picker input styling for wallpaper configuration
 
 ### Changed
-- PowerShell deployment script now includes wallpaper registry configuration and browser watchdog scheduled task creation when enabled
+- PowerShell deployment script now includes wallpaper registry configuration and app watchdog scheduled task creation when enabled
 
 ## [1.2.8] - 2026-01-23
 

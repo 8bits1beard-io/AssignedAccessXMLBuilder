@@ -59,7 +59,7 @@ Configuring Windows kiosk mode traditionally requires hand-crafting complex XML 
 - Breakout sequence configuration for technician access
 - Two UI themes (Fallout and Fluent)
 - Desktop wallpaper configuration (solid color or image path) for multi-app/restricted modes
-- Browser Watchdog: optional scheduled task to relaunch browser if closed by idle timeout policy
+- App Watchdog: optional scheduled task to relaunch the auto-launch app if closed (e.g., by idle timeout policy)
 - WCAG 2.1 Level AA accessibility: proper ARIA roles/states, contrast ratios, color-blind safe indicators
 
 ---
@@ -130,6 +130,19 @@ python -m http.server
 | [REFERENCE.md](REFERENCE.md) | Technical reference: deployment, troubleshooting, XML namespaces, Edge configuration |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute: code style, pull requests, testing |
 | [CHANGELOG.md](CHANGELOG.md) | Version history and release notes |
+
+---
+
+## Privacy
+
+Kiosk Overseer is 100% client-side. **No data is collected, transmitted, or stored on any server.**
+
+- All configuration, XML generation, and script building happens entirely in your browser
+- Exports are generated in-memory and downloaded as local files
+- Saved configurations (`.kioskoverseer.json`) are stored only on your local filesystem
+- No user input or configuration data ever leaves your device
+- No cookies, local storage, or session tracking is used for user content
+- The only external resource is [Cloudflare Web Analytics](https://www.cloudflare.com/web-analytics/) for anonymous page view metrics (no personal data, no cookies)
 
 ---
 

@@ -57,7 +57,7 @@ Scripts load in this order in `index.html`. **Order matters** - later scripts ov
 
 | File | Purpose |
 |------|---------|
-| `app.js` | Core UI: mode switching, Edge args builder, export generation, progress rail, wallpaper config, browser watchdog |
+| `app.js` | Core UI: mode switching, Edge args builder, export generation, progress rail, wallpaper config, app watchdog |
 | `apps.js` | Allowed apps CRUD: addAllowedApp, removeApp, renderAppList, auto-launch selection |
 | `pins.js` | All pin operations for both Start menu and Taskbar (uses `PIN_LIST_CONFIG`) |
 | `config.js` | Configuration persistence + `actionHandlers` event delegation |
@@ -200,7 +200,7 @@ Manual testing only (no automated test framework):
 5. Test configuration save/load functionality
 6. Test both themes (Fallout and Fluent)
 7. Test wallpaper configuration (solid color and image path in multi-app/restricted modes)
-8. Test browser watchdog (enable toggle, interval field, PowerShell export with scheduled task)
+8. Test app watchdog (enable toggle, interval field, PowerShell export with scheduled task)
 9. Test accessibility (screen reader announcements, keyboard navigation, contrast in both themes)
 
 ## Edge Kiosk Notes
