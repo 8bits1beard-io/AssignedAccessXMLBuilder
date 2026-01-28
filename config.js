@@ -403,6 +403,12 @@ function runAction(action, target, event) {
         return;
     }
 
+    // Pass button element to copy handlers for visual feedback
+    if (action.startsWith('copy')) {
+        handler(target);
+        return;
+    }
+
     handler();
 }
 

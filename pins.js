@@ -14,7 +14,7 @@ const PIN_LIST_CONFIG = {
         editPanelId: 'pinEditPanel',
         prefix: 'pin',
         editPrefix: 'editPin',
-        emptyMessage: 'No pins added yet',
+        emptyMessage: 'No pins added yet. Add a desktop shortcut or UWP app above.',
         supportsSecondaryTile: true,
         supportsDuplicate: true
     },
@@ -25,7 +25,7 @@ const PIN_LIST_CONFIG = {
         editPanelId: 'taskbarEditPanel',
         prefix: 'taskbarPin',
         editPrefix: 'editTaskbar',
-        emptyMessage: 'No taskbar pins configured',
+        emptyMessage: 'No taskbar pins configured. Add a desktop app or UWP app above.',
         supportsSecondaryTile: false,
         supportsDuplicate: false
     }

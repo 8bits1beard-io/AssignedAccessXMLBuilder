@@ -105,8 +105,8 @@ function generateGuid() {
     updatePreview();
 }
 
-function copyProfileId() {
-    copyToClipboard(dom.get('profileId').value);
+function copyProfileId(buttonEl) {
+    copyToClipboard(dom.get('profileId').value, buttonEl);
 }
 
 /* ============================================================================
@@ -1061,14 +1061,13 @@ function updatePreview() {
 /* ============================================================================
    Export Functions
    ============================================================================ */
-function copyXml() {
+function copyXml(buttonEl) {
     if (!showValidation()) {
         if (!confirm('Configuration has errors. Copy anyway?')) return;
     }
 
     const xml = generateXml();
-    copyToClipboard(xml);
-    alert('XML copied to clipboard!');
+    copyToClipboard(xml, buttonEl);
 }
 
 function getConfigFileName(extension) {

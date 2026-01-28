@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.3">
+    <link rel="stylesheet" href="styles.css?v=1.4.4">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,8 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.3
-                <button type="button" class="btn-secondary btn-small" id="themeToggle" data-action="toggleTheme">Theme: Fallout</button>
+                KIOSK OVERSEER // BUILD 1.4.4
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
@@ -523,7 +522,7 @@
                             <div class="form-group">
                                 <label id="appList-label">Allowed Apps (<span id="appCount" aria-live="polite">0</span>)</label>
                                 <div class="app-list" id="appList" role="list" aria-labelledby="appList-label" aria-live="polite">
-                                    <div class="empty-list" role="listitem">No apps added yet</div>
+                                    <div class="empty-list" role="listitem">No apps added yet. Use "Add Common App" above to get started.</div>
                                 </div>
                             </div>
                             </div>
@@ -769,7 +768,7 @@
                             <div class="form-group">
                                 <label id="pinList-label">Pinned Shortcuts (<span id="pinCount" aria-live="polite">0</span>)</label>
                                 <div class="app-list" id="pinList" role="list" aria-labelledby="pinList-label" aria-live="polite">
-                                    <div class="empty-list" role="listitem">No pins added yet</div>
+                                    <div class="empty-list" role="listitem">No pins added yet. Add a desktop shortcut or UWP app above.</div>
                                 </div>
                             </div>
                             </div>
@@ -968,7 +967,7 @@
                             <div class="form-group">
                                 <label id="taskbarPinList-label">Taskbar Pins (<span id="taskbarPinCount" aria-live="polite">0</span>)</label>
                                 <div class="app-list" id="taskbarPinList" role="list" aria-labelledby="taskbarPinList-label" aria-live="polite">
-                                    <div class="empty-list" role="listitem">No taskbar pins configured</div>
+                                    <div class="empty-list" role="listitem">No taskbar pins configured. Add a desktop app or UWP app above.</div>
                                 </div>
                             </div>
                             </div>
@@ -1123,7 +1122,7 @@
                 <span data-section-key="xmlPreview"></span>
             </h2>
             <div class="panel-content preview-content">
-                <pre class="xml-preview crt-terminal crt-pane" id="xmlPreview" aria-label="Generated XML configuration" tabindex="0">
+                <pre class="xml-preview crt-terminal crt-pane" id="xmlPreview" aria-label="Generated XML configuration (read-only)" aria-readonly="true" tabindex="0">
                     <!-- XML will be rendered here -->
                 </pre>
             </div>
@@ -1137,6 +1136,8 @@
         <a href="https://github.com/8bits1beard-io/KioskOverseer" target="_blank" rel="noopener noreferrer">GitHub</a>
         <span>•</span>
         <a href="https://github.com/8bits1beard-io/KioskOverseer/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+        <span>•</span>
+        <button type="button" class="btn-secondary btn-small" id="themeToggle" data-action="toggleTheme">Theme: Fallout</button>
     </footer>
 
     <!-- Deploy Guide Modal -->
@@ -1310,14 +1311,14 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.3"></script>
-    <script src="state.js?v=1.4.3"></script>
-    <script src="helpers.js?v=1.4.3"></script>
-    <script src="xml.js?v=1.4.3"></script>
-    <script src="validation.js?v=1.4.3"></script>
-    <script src="app.js?v=1.4.3"></script>
-    <script src="apps.js?v=1.4.3"></script>
-    <script src="pins.js?v=1.4.3"></script>
-    <script src="config.js?v=1.4.3"></script>
+    <script src="dom.js?v=1.4.4"></script>
+    <script src="state.js?v=1.4.4"></script>
+    <script src="helpers.js?v=1.4.4"></script>
+    <script src="xml.js?v=1.4.4"></script>
+    <script src="validation.js?v=1.4.4"></script>
+    <script src="app.js?v=1.4.4"></script>
+    <script src="apps.js?v=1.4.4"></script>
+    <script src="pins.js?v=1.4.4"></script>
+    <script src="config.js?v=1.4.4"></script>
 </body>
 </html>

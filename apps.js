@@ -131,7 +131,7 @@ function renderAppList() {
     count.textContent = state.allowedApps.length;
 
     if (state.allowedApps.length === 0) {
-        list.innerHTML = '<div class="empty-list" role="status">No apps added yet</div>';
+        list.innerHTML = '<div class="empty-list" role="status">No apps added yet. Use "Add Common App" above to get started.</div>';
         return;
     }
 

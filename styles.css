@@ -1046,6 +1046,13 @@ button:focus-visible {
     box-shadow: var(--hover-glow);
 }
 
+.copy-success {
+    background: var(--success) !important;
+    color: var(--bg-primary) !important;
+    border-color: var(--success) !important;
+    transition: all 0.2s ease;
+}
+
 .btn-small {
     padding: 6px 12px;
     font-size: 0.85rem;

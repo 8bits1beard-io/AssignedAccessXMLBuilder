@@ -41,14 +41,28 @@ function isBrowserWithKioskSupport(value) {
     return isEdgeApp(value) || isChromeApp(value) || isFirefoxApp(value) || isBraveApp(value) || isIslandApp(value);
 }
 
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).catch(() => {
+function copyToClipboard(text, buttonEl) {
+    const showFeedback = (btn) => {
+        if (!btn) return;
+        const original = btn.innerHTML;
+        btn.innerHTML = '<span aria-hidden="true">Copied!</span>';
+        btn.classList.add('copy-success');
+        setTimeout(() => {
+            btn.innerHTML = original;
+            btn.classList.remove('copy-success');
+        }, 1500);
+    };
+
+    navigator.clipboard.writeText(text).then(() => {
+        showFeedback(buttonEl);
+    }).catch(() => {
         const textarea = document.createElement('textarea');
         textarea.value = text;
         document.body.appendChild(textarea);
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
+        showFeedback(buttonEl);
     });
 }
 

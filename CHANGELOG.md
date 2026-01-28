@@ -2,6 +2,17 @@
 
 All notable changes to Kiosk Overseer are documented here.
 
+## [1.4.4] - 2026-01-28
+
+### Added
+- Copy button feedback: "Copy GUID" and "Copy XML" buttons now show "Copied!" with green highlight for 1.5 seconds
+- Improved empty state messages with actionable guidance (e.g., "No apps added yet. Use 'Add Common App' above to get started.")
+- XML preview accessibility: added `aria-readonly="true"` and improved aria-label
+
+### Changed
+- Theme toggle moved from header to footer for less prominent but more discoverable placement
+- Removed alert dialog after copying XML (replaced with inline button feedback)
+
 ## [1.4.3] - 2026-01-27
 
 ### Removed
