@@ -58,7 +58,6 @@ Configuring Windows kiosk mode traditionally requires hand-crafting complex XML 
 - Configuration import/export (`.kioskoverseer.json`)
 - Breakout sequence configuration for technician access
 - Two UI themes (Fallout and Fluent)
-- Desktop wallpaper configuration (solid color or image path) for multi-app/restricted modes
 - KioskOverseer Sentry: optional scheduled task to relaunch the auto-launch app if closed (e.g., by idle timeout policy)
 - Diagnostic logging: enables Assigned Access, AppLocker, and AppXDeployment event logs for troubleshooting
 - WCAG 2.1 Level AA accessibility: proper ARIA roles/states, contrast ratios, color-blind safe indicators

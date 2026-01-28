@@ -57,7 +57,7 @@ Scripts load in this order in `index.html`. **Order matters** - later scripts ov
 
 | File | Purpose |
 |------|---------|
-| `app.js` | Core UI: mode switching, Edge args builder, export generation, progress rail, wallpaper config, KioskOverseer Sentry |
+| `app.js` | Core UI: mode switching, Edge args builder, export generation, progress rail, KioskOverseer Sentry |
 | `apps.js` | Allowed apps CRUD: addAllowedApp, removeApp, renderAppList, auto-launch selection |
 | `pins.js` | All pin operations for both Start menu and Taskbar (uses `PIN_LIST_CONFIG`) |
 | `config.js` | Configuration persistence + `actionHandlers` event delegation |
@@ -199,9 +199,8 @@ Manual testing only (no automated test framework):
 4. Test all exports (XML, PowerShell, shortcuts, config save/load)
 5. Test configuration save/load functionality
 6. Test both themes (Fallout and Fluent)
-7. Test wallpaper configuration (solid color and image path in multi-app/restricted modes)
-8. Test KioskOverseer Sentry (enable toggle, interval field, PowerShell export with scheduled task)
-9. Test accessibility (screen reader announcements, keyboard navigation, contrast in both themes)
+7. Test KioskOverseer Sentry (enable toggle, interval field, PowerShell export with scheduled task)
+8. Test accessibility (screen reader announcements, keyboard navigation, contrast in both themes)
 
 ## Edge Kiosk Notes
 

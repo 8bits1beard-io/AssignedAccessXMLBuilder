@@ -2,6 +2,11 @@
 
 All notable changes to Kiosk Overseer are documented here.
 
+## [1.4.3] - 2026-01-27
+
+### Removed
+- Desktop wallpaper configuration (solid color and image path) — use Intune OMA-URI policy instead
+
 ## [1.4.1] - 2026-01-27
 
 ### Fixed

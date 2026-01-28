@@ -195,8 +195,6 @@ function applyConfigSnapshot(payload) {
     updateEdgeArgsVisibility('taskbarPin', 'taskbarPinTarget', 'taskbarPinEdgeArgsGroup');
     updateEdgeArgsVisibility('editTaskbar', 'editTaskbarPinTarget', 'editTaskbarEdgeArgsGroup');
     updateBreakoutUI();
-    updateWallpaperVisibility();
-    updateWallpaperTypeUI();
     updateSentryUI();
     updatePreview();
 }
@@ -223,12 +221,6 @@ function loadPreset(preset) {
     dom.get('multiEdgeKioskType').value = 'fullscreen';
     dom.get('win32AutoLaunchArgs').value = '';
     updateMultiEdgeSourceUI();
-
-    // Reset wallpaper config
-    dom.get('wallpaperType').value = 'none';
-    dom.get('wallpaperColor').value = '#000000';
-    dom.get('wallpaperImagePath').value = '';
-    updateWallpaperTypeUI();
 
     // Reset sentry config
     dom.get('enableSentry').checked = false;
@@ -375,7 +367,6 @@ const actionHandlers = {
     copyProfileId,
     dismissCallout,
     toggleTheme,
-    updateWallpaperTypeUI,
     updateSentryUI
 };
 

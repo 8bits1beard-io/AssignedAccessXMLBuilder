@@ -234,25 +234,6 @@ function updateTaskbarControlsVisibility() {
     });
 }
 
-function updateWallpaperVisibility() {
-    const section = dom.get('wallpaperSection');
-    if (!section) return;
-    const hide = state.mode === 'single';
-    section.classList.toggle('hidden', hide);
-    section.setAttribute('aria-hidden', hide.toString());
-    section.querySelectorAll('input, select, textarea, button').forEach(control => {
-        control.disabled = hide;
-    });
-}
-
-function updateWallpaperTypeUI() {
-    const type = dom.get('wallpaperType').value;
-    const colorGroup = dom.get('wallpaperColorGroup');
-    const imageGroup = dom.get('wallpaperImageGroup');
-    if (colorGroup) colorGroup.classList.toggle('hidden', type !== 'solid');
-    if (imageGroup) imageGroup.classList.toggle('hidden', type !== 'image');
-}
-
 function updateSentryUI() {
     const enabled = dom.get('enableSentry').checked;
     const intervalGroup = dom.get('sentryIntervalGroup');
@@ -318,8 +299,6 @@ function setMode(mode) {
     // Update tab visibility based on mode
     updateTabVisibility();
     updateTaskbarControlsVisibility();
-    updateWallpaperVisibility();
-
     updateKioskModeHint();
 
     // Update auto-launch selector when switching to multi/restricted mode
@@ -1132,69 +1111,6 @@ function downloadPowerShell() {
             IconLocation: p.iconPath || ''
         })), null, 4);
 
-    // Generate wallpaper PowerShell block
-    const wallpaperType = dom.get('wallpaperType').value;
-    let wallpaperPs = '';
-    if (state.mode !== 'single' && wallpaperType === 'solid') {
-        const hex = dom.get('wallpaperColor').value;
-        const r = parseInt(hex.substring(1, 3), 16);
-        const g = parseInt(hex.substring(3, 5), 16);
-        const b = parseInt(hex.substring(5, 7), 16);
-        wallpaperPs = `
-    # Configure desktop wallpaper - Solid Color (generate BMP image + Active Setup)
-    Write-Log -Action "Set desktop wallpaper" -Status "Info" -Message "Solid color: ${hex}"
-    try {
-        Add-Type -AssemblyName System.Drawing
-        $bmpDir = Join-Path $env:ProgramData "KioskOverseer"
-        if (-not (Test-Path $bmpDir)) { New-Item -ItemType Directory -Path $bmpDir -Force | Out-Null }
-        $bmpPath = Join-Path $bmpDir "SolidColorWallpaper.bmp"
-
-        $bmp = New-Object System.Drawing.Bitmap(1, 1)
-        $bmp.SetPixel(0, 0, [System.Drawing.Color]::FromArgb(${r}, ${g}, ${b}))
-        $bmp.Save($bmpPath, [System.Drawing.Imaging.ImageFormat]::Bmp)
-        $bmp.Dispose()
-
-        # Register Active Setup to apply wallpaper at each user's first logon
-        $asKey = "HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\KioskOverseer-Wallpaper"
-        if (-not (Test-Path $asKey)) { New-Item -Path $asKey -Force | Out-Null }
-        $stubCmd = "reg add ""HKCU\\Control Panel\\Desktop"" /v WallPaper /t REG_SZ /d ""$bmpPath"" /f & reg add ""HKCU\\Control Panel\\Desktop"" /v WallpaperStyle /t REG_SZ /d 10 /f & reg add ""HKCU\\Control Panel\\Desktop"" /v TileWallpaper /t REG_SZ /d 0 /f & RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True"
-        Set-ItemProperty -Path $asKey -Name "(Default)" -Value "KioskOverseer Wallpaper" -Force
-        Set-ItemProperty -Path $asKey -Name "StubPath" -Value $stubCmd -Force
-        Set-ItemProperty -Path $asKey -Name "Version" -Value "1,0,0,0" -Force
-        Set-ItemProperty -Path $asKey -Name "IsInstalled" -Value 1 -Type DWord -Force
-
-        Write-Log -Action "Desktop wallpaper set" -Status "Success" -Message "Solid color ${hex} (${r} ${g} ${b}) via Active Setup"
-    } catch {
-        Write-Log -Action "Desktop wallpaper" -Status "Warning" -Message $_.Exception.Message
-    }
-`;
-    } else if (state.mode !== 'single' && wallpaperType === 'image') {
-        const imagePath = dom.get('wallpaperImagePath').value.replace(/\\/g, '\\\\').replace(/'/g, "''");
-        wallpaperPs = `
-    # Configure desktop wallpaper - Image (Active Setup)
-    Write-Log -Action "Set desktop wallpaper" -Status "Info" -Message "Image: ${imagePath}"
-    try {
-        $imgPath = '${imagePath}'
-        if (-not (Test-Path $imgPath)) {
-            Write-Log -Action "Desktop wallpaper" -Status "Warning" -Message "Image not found: $imgPath (must exist on target device)"
-        }
-
-        # Register Active Setup to apply wallpaper at each user's first logon
-        $asKey = "HKLM:\\SOFTWARE\\Microsoft\\Active Setup\\Installed Components\\KioskOverseer-Wallpaper"
-        if (-not (Test-Path $asKey)) { New-Item -Path $asKey -Force | Out-Null }
-        $stubCmd = "reg add ""HKCU\\Control Panel\\Desktop"" /v WallPaper /t REG_SZ /d ""$imgPath"" /f & reg add ""HKCU\\Control Panel\\Desktop"" /v WallpaperStyle /t REG_SZ /d 10 /f & reg add ""HKCU\\Control Panel\\Desktop"" /v TileWallpaper /t REG_SZ /d 0 /f & RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters 1, True"
-        Set-ItemProperty -Path $asKey -Name "(Default)" -Value "KioskOverseer Wallpaper" -Force
-        Set-ItemProperty -Path $asKey -Name "StubPath" -Value $stubCmd -Force
-        Set-ItemProperty -Path $asKey -Name "Version" -Value "1,0,0,0" -Force
-        Set-ItemProperty -Path $asKey -Name "IsInstalled" -Value 1 -Type DWord -Force
-
-        Write-Log -Action "Desktop wallpaper set" -Status "Success" -Message "Image: $imgPath via Active Setup"
-    } catch {
-        Write-Log -Action "Desktop wallpaper" -Status "Warning" -Message $_.Exception.Message
-    }
-`;
-    }
-
     // Generate KioskOverseer Sentry scheduled task block
     let sentryPs = '';
     if (state.mode !== 'single' && dom.get('enableSentry').checked) {
@@ -1479,7 +1395,6 @@ catch {
 
 try {
     Write-Log -Action "Starting deployment" -Status "Info" -Message "Target: $env:COMPUTERNAME"
-${wallpaperPs}
 ${sentryPs}
     # Skip audit logging setup in ShortcutsOnly mode
     if (-not $ShortcutsOnly) {
@@ -2237,21 +2152,6 @@ function generateReadme() {
             'all': 'No restriction'
         };
         readme += `| File Explorer | ${fileExplorerLabels[fileExplorer] || fileExplorer} |\n\n`;
-
-        // Desktop wallpaper
-        const wallpaperType = dom.get('wallpaperType').value;
-        if (wallpaperType !== 'none') {
-            readme += `## Desktop Wallpaper\n\n`;
-            if (wallpaperType === 'solid') {
-                const color = dom.get('wallpaperColor').value;
-                readme += `**Type:** Solid Color\n`;
-                readme += `**Color:** ${color}\n\n`;
-            } else if (wallpaperType === 'image') {
-                const imagePath = dom.get('wallpaperImagePath').value;
-                readme += `**Type:** Image File\n`;
-                readme += `**Path:** \`${imagePath || '(not set)'}\`\n\n`;
-            }
-        }
 
         // KioskOverseer Sentry
         const sentryEnabled = dom.get('enableSentry').checked;

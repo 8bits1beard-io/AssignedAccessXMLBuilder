@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.2">
+    <link rel="stylesheet" href="styles.css?v=1.4.3">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.2
+                KIOSK OVERSEER // BUILD 1.4.3
                 <button type="button" class="btn-secondary btn-small" id="themeToggle" data-action="toggleTheme">Theme: Fallout</button>
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
@@ -212,35 +212,6 @@
                                 <option value="all">No Restriction (All Locations)</option>
                             </select>
                         </div>
-                        </div>
-                    </div>
-                </fieldset>
-                <fieldset class="section hidden" id="wallpaperSection" aria-hidden="true">
-                    <legend class="section-header" data-section-key="desktopWallpaper">Desktop Wallpaper</legend>
-                    <div class="section-content">
-                        <div class="sub-panel">
-                            <div class="sub-panel-title">DESKTOP WALLPAPER</div>
-                            <div class="form-group">
-                                <label for="wallpaperType" class="with-tooltip">
-                                    Wallpaper Type
-                                    <button type="button" class="tooltip-icon" aria-label="Help for Wallpaper Type" aria-describedby="wallpaperType-tooltip">?</button>
-                                    <span class="tooltip-content" id="wallpaperType-tooltip" role="tooltip">Set the desktop wallpaper on the kiosk device. Solid Color removes any wallpaper and fills the background with a single color. Image File sets a wallpaper image that must already exist on the target device.</span>
-                                </label>
-                                <select id="wallpaperType" data-change="updateWallpaperTypeUI">
-                                    <option value="none">None (Use Default)</option>
-                                    <option value="solid">Solid Color</option>
-                                    <option value="image">Image File</option>
-                                </select>
-                            </div>
-                            <div id="wallpaperColorGroup" class="form-group hidden">
-                                <label for="wallpaperColor">Background Color</label>
-                                <input type="color" id="wallpaperColor" value="#000000">
-                            </div>
-                            <div id="wallpaperImageGroup" class="form-group hidden">
-                                <label for="wallpaperImagePath">Image Path (on target device)</label>
-                                <input type="text" id="wallpaperImagePath" placeholder="C:\Windows\Web\Wallpaper\image.jpg">
-                                <span class="hint">Full path to the wallpaper image file on the kiosk device.</span>
-                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -1339,14 +1310,14 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.2"></script>
-    <script src="state.js?v=1.4.2"></script>
-    <script src="helpers.js?v=1.4.2"></script>
-    <script src="xml.js?v=1.4.2"></script>
-    <script src="validation.js?v=1.4.2"></script>
-    <script src="app.js?v=1.4.2"></script>
-    <script src="apps.js?v=1.4.2"></script>
-    <script src="pins.js?v=1.4.2"></script>
-    <script src="config.js?v=1.4.2"></script>
+    <script src="dom.js?v=1.4.3"></script>
+    <script src="state.js?v=1.4.3"></script>
+    <script src="helpers.js?v=1.4.3"></script>
+    <script src="xml.js?v=1.4.3"></script>
+    <script src="validation.js?v=1.4.3"></script>
+    <script src="app.js?v=1.4.3"></script>
+    <script src="apps.js?v=1.4.3"></script>
+    <script src="pins.js?v=1.4.3"></script>
+    <script src="config.js?v=1.4.3"></script>
 </body>
 </html>
