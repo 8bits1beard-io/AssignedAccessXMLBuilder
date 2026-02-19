@@ -1,6 +1,6 @@
 # Kiosk Overseer
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![License: PolyForm Noncommercial](https://img.shields.io/badge/License-PolyForm%20Noncommercial-green.svg)](LICENSE)
 [![Windows 11](https://img.shields.io/badge/Windows-11-0078D4?logo=windows)](https://www.microsoft.com/windows)
 
 A web-based GUI for building Windows Assigned Access (kiosk) configurations. Create validated XML without hand-editing, configure apps and pins visually, and export deployment-ready scripts.
@@ -157,4 +157,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines
 
 ## License
 
-[MIT License](LICENSE) — Copyright 2025 Joshua Walderbach
+[PolyForm Noncommercial License 1.0.0](LICENSE) — Copyright 2026 Joshua Walderbach
