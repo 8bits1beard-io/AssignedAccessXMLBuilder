@@ -197,10 +197,11 @@ Manual testing only (no automated test framework):
 2. Test browser kiosk options (Edge, Chrome, Firefox, Brave, Island)
 3. Test pin management (add, edit, reorder, duplicate, remove)
 4. Test all exports (XML, PowerShell, shortcuts, config save/load)
-5. Test configuration save/load functionality
-6. Test both themes (Fallout and Fluent)
-7. Test KioskOverseer Sentry (enable toggle, interval field, PowerShell export with scheduled task)
-8. Test accessibility (screen reader announcements, keyboard navigation, contrast in both themes)
+5. Test Replace Default Taskbar Pins toggle (verify PinListPlacement="Replace" appears/disappears in XML preview)
+6. Test configuration save/load functionality
+7. Test both themes (Fallout and Fluent)
+8. Test KioskOverseer Sentry (enable toggle, interval field, PowerShell export with scheduled task)
+9. Test accessibility (screen reader announcements, keyboard navigation, contrast in both themes)
 
 ## Edge Kiosk Notes
 

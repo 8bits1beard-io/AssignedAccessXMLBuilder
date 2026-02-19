@@ -2,6 +2,14 @@
 
 All notable changes to Kiosk Overseer are documented here.
 
+## [1.4.5] - 2026-02-19
+
+### Added
+- "Replace Default Taskbar Pins" toggle: adds `PinListPlacement="Replace"` to the `CustomTaskbarLayoutCollection` element in generated taskbar XML. When enabled (default), only user-configured pins appear on the taskbar and Windows defaults (Edge, File Explorer, Store) are removed.
+
+### Fixed
+- Updated stale MIT license references in README.md badge, README.md license section, and index.html footer to reflect PolyForm Noncommercial License 1.0.0
+
 ## [1.4.4] - 2026-01-28
 
 ### Added

@@ -159,7 +159,7 @@ The deployment script enables these event log channels automatically. Open **Eve
 
 ## Themes
 
-Use the **Theme** toggle next to the build label to switch between the Fallout theme and the Fluent-inspired alternative. The choice is saved in local storage.
+Use the **Theme** toggle in the footer to switch between the Fallout theme and the Fluent-inspired alternative. The choice is saved in local storage.
 
 ---
 
@@ -294,6 +294,17 @@ The StartPins element uses JSON to define pinned shortcuts. Desktop shortcuts mu
 
 **Start Layout XML Download:** Use **Download Start Layout XML** to export a LayoutModification XML file for Intune Start layout file uploads.
 
+---
+
+## Taskbar Pin Replacement (PinListPlacement)
+
+The generated TaskbarLayout XML includes a `CustomTaskbarLayoutCollection` element. When "Replace Default Taskbar Pins" is enabled in the Setup tab (default), the element includes `PinListPlacement="Replace"`:
+
+```xml
+<CustomTaskbarLayoutCollection PinListPlacement="Replace">
+```
+
+This removes the default Windows taskbar pins (Edge, File Explorer, Store) so only your configured pins appear. When disabled, your pins are appended after the defaults.
 
 ---
 
