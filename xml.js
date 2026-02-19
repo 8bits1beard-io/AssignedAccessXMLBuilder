@@ -207,6 +207,9 @@ function buildTaskbarLayoutXml() {
         return null;
     }
 
+    const replacePins = dom.get('replaceTaskbarPins')?.checked;
+    const pinListAttr = replacePins ? ' PinListPlacement="Replace"' : '';
+
     return `<?xml version="1.0" encoding="utf-8"?>\n` +
 `<LayoutModificationTemplate\n` +
 `    xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"\n` +
@@ -214,7 +217,7 @@ function buildTaskbarLayoutXml() {
 `    xmlns:start="http://schemas.microsoft.com/Start/2014/StartLayout"\n` +
 `    xmlns:taskbar="http://schemas.microsoft.com/Start/2014/TaskbarLayout"\n` +
 `    Version="1">\n` +
-`    <CustomTaskbarLayoutCollection>\n` +
+`    <CustomTaskbarLayoutCollection${pinListAttr}>\n` +
 `        <defaultlayout:TaskbarLayout>\n` +
 `            <taskbar:TaskbarPinList>\n` +
 `                ${entries.join('\n                ')}\n` +

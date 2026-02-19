@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.4">
+    <link rel="stylesheet" href="styles.css?v=1.4.5">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.4
+                KIOSK OVERSEER // BUILD 1.4.5
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
@@ -186,6 +186,17 @@
                                     Show Taskbar
                                     <button type="button" class="tooltip-icon" aria-label="Help for Show Taskbar" aria-describedby="showTaskbar-tooltip">?</button>
                                     <span class="tooltip-content" id="showTaskbar-tooltip" role="tooltip">When enabled, users see the Windows taskbar with Start button and running apps. Disable for a more locked-down experience where users can only access apps via the Start menu.</span>
+                                </label>
+                            </div>
+                            <div class="checkbox-group">
+                                <span class="toggle-switch">
+                                    <input type="checkbox" role="switch" id="replaceTaskbarPins" checked data-change="updatePreview" aria-describedby="replaceTaskbarPins-tooltip">
+                                    <span class="toggle-slider" aria-hidden="true"></span>
+                                </span>
+                                <label for="replaceTaskbarPins" class="with-tooltip">
+                                    Replace Default Taskbar Pins
+                                    <button type="button" class="tooltip-icon" aria-label="Help for Replace Default Taskbar Pins" aria-describedby="replaceTaskbarPins-tooltip">?</button>
+                                    <span class="tooltip-content" id="replaceTaskbarPins-tooltip" role="tooltip">When enabled, the default Windows taskbar pins (Edge, File Explorer, Store) are removed and only the pins you configure in the Taskbar step are shown. When disabled, your pins are appended after the default pins.</span>
                                 </label>
                             </div>
                         </div>
@@ -1311,14 +1322,14 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.4"></script>
-    <script src="state.js?v=1.4.4"></script>
-    <script src="helpers.js?v=1.4.4"></script>
-    <script src="xml.js?v=1.4.4"></script>
-    <script src="validation.js?v=1.4.4"></script>
-    <script src="app.js?v=1.4.4"></script>
-    <script src="apps.js?v=1.4.4"></script>
-    <script src="pins.js?v=1.4.4"></script>
-    <script src="config.js?v=1.4.4"></script>
+    <script src="dom.js?v=1.4.5"></script>
+    <script src="state.js?v=1.4.5"></script>
+    <script src="helpers.js?v=1.4.5"></script>
+    <script src="xml.js?v=1.4.5"></script>
+    <script src="validation.js?v=1.4.5"></script>
+    <script src="app.js?v=1.4.5"></script>
+    <script src="apps.js?v=1.4.5"></script>
+    <script src="pins.js?v=1.4.5"></script>
+    <script src="config.js?v=1.4.5"></script>
 </body>
 </html>

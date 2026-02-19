@@ -222,6 +222,9 @@ function loadPreset(preset) {
     dom.get('win32AutoLaunchArgs').value = '';
     updateMultiEdgeSourceUI();
 
+    // Reset taskbar pin replacement
+    dom.get('replaceTaskbarPins').checked = true;
+
     // Reset sentry config
     dom.get('enableSentry').checked = false;
     dom.get('sentryInterval').value = '10';
