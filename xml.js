@@ -198,7 +198,7 @@ function buildTaskbarLayoutXml() {
             return `<taskbar:DesktopApp DesktopApplicationLinkPath="${escapeXml(linkPath)}"/>`;
         }
         if (pin.pinType === 'packagedAppId' && pin.packagedAppId) {
-            return `<taskbar:DesktopApp DesktopApplicationID="${escapeXml(pin.packagedAppId)}"/>`;
+            return `<taskbar:UWA AppUserModelID="${escapeXml(pin.packagedAppId)}"/>`;
         }
         return '';
     }).filter(Boolean);
@@ -255,7 +255,16 @@ function generateConfigsSection() {
 
     if (state.accountType === 'global') {
         // Global profile applies to all non-admin users
-        xml += `        <v3:GlobalProfile Id="${profileId}"/>\n`;
+        const excludeOwner = dom.get('excludeDeviceOwner')?.checked;
+        if (excludeOwner) {
+            xml += `        <v3:GlobalProfile Id="${profileId}">\n`;
+            xml += `            <v5:Exclusions>\n`;
+            xml += `                <SpecialGroup Name="DeviceOwner"/>\n`;
+            xml += `            </v5:Exclusions>\n`;
+            xml += `        </v3:GlobalProfile>\n`;
+        } else {
+            xml += `        <v3:GlobalProfile Id="${profileId}"/>\n`;
+        }
     } else {
         xml += `        <Config>\n`;
         xml += generateAccountConfig();

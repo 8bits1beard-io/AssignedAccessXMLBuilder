@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.5">
+    <link rel="stylesheet" href="styles.css?v=1.4.6">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.5
+                KIOSK OVERSEER // BUILD 1.4.6
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
@@ -168,6 +168,19 @@
                             <p class="hint">
                                 <strong>Global Profile:</strong> This profile applies to ALL non-administrator users on the device. No specific account or group configuration needed.
                             </p>
+                            <div class="form-group">
+                                <div class="checkbox-group">
+                                    <span class="toggle-switch">
+                                        <input type="checkbox" role="switch" id="excludeDeviceOwner" checked data-change="updatePreview" aria-describedby="excludeDeviceOwner-tooltip">
+                                        <span class="toggle-slider" aria-hidden="true"></span>
+                                    </span>
+                                    <label for="excludeDeviceOwner" class="with-tooltip">
+                                        Exclude Device Owner
+                                        <button type="button" class="tooltip-icon" aria-label="Help for Exclude Device Owner" aria-describedby="excludeDeviceOwner-tooltip">?</button>
+                                        <span class="tooltip-content" id="excludeDeviceOwner-tooltip" role="tooltip">When enabled, the device owner (the account that set up the device) is excluded from the Global Profile restrictions. This prevents the admin from being locked into kiosk mode.</span>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </fieldset>
@@ -1322,14 +1335,14 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.5"></script>
-    <script src="state.js?v=1.4.5"></script>
-    <script src="helpers.js?v=1.4.5"></script>
-    <script src="xml.js?v=1.4.5"></script>
-    <script src="validation.js?v=1.4.5"></script>
-    <script src="app.js?v=1.4.5"></script>
-    <script src="apps.js?v=1.4.5"></script>
-    <script src="pins.js?v=1.4.5"></script>
-    <script src="config.js?v=1.4.5"></script>
+    <script src="dom.js?v=1.4.6"></script>
+    <script src="state.js?v=1.4.6"></script>
+    <script src="helpers.js?v=1.4.6"></script>
+    <script src="xml.js?v=1.4.6"></script>
+    <script src="validation.js?v=1.4.6"></script>
+    <script src="app.js?v=1.4.6"></script>
+    <script src="apps.js?v=1.4.6"></script>
+    <script src="pins.js?v=1.4.6"></script>
+    <script src="config.js?v=1.4.6"></script>
 </body>
 </html>
