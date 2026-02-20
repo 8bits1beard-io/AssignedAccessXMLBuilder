@@ -2505,3 +2505,196 @@ label.with-tooltip {
     font-size: 0.9rem;
     color: var(--text-secondary);
 }
+
+/* ============================================
+   Summary Cards (Configuration Summary Tab)
+   ============================================ */
+.summary-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.summary-card {
+    border: var(--frame-border);
+    border-top: 3px solid var(--accent);
+    border-radius: var(--frame-radius);
+    background: var(--bg-tertiary);
+    padding: 0;
+    overflow: hidden;
+}
+
+.summary-card-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    padding: 10px 14px 0;
+    font-weight: 600;
+}
+
+.summary-card-body {
+    padding: 8px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+}
+
+.summary-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.summary-value {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-weight: 600;
+    text-align: right;
+    word-break: break-word;
+}
+
+/* Export Panel in Summary */
+.export-panel {
+    margin-top: 16px;
+}
+
+.export-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.export-btn-main {
+    width: 100%;
+    padding: 12px 18px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.export-secondary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.export-secondary .btn-secondary {
+    flex: 1 1 auto;
+    min-width: 120px;
+    text-align: center;
+}
+
+/* ============================================
+   Deploy Step Badges
+   ============================================ */
+.deploy-step-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.deploy-step-header h4 {
+    margin: 0;
+}
+
+.deploy-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--bg-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    font-family: var(--font-secondary);
+    line-height: 1;
+}
+
+/* Deploy Code Copy Buttons */
+.deploy-code-wrapper {
+    position: relative;
+}
+
+.deploy-code-copy {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+    z-index: 2;
+}
+
+.deploy-code-wrapper:hover .deploy-code-copy {
+    opacity: 1;
+}
+
+/* Deploy Note Variants */
+.deploy-note--info {
+    border-left-color: var(--accent);
+}
+
+.deploy-note--tip {
+    border-left-color: var(--success);
+}
+
+.deploy-note--warning {
+    border-left-color: var(--warning);
+}
+
+/* Deployment Flow (replaces inline styles) */
+.flow-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.flow-section {
+    padding: 12px;
+    background: var(--bg-tertiary);
+    border-radius: var(--frame-radius);
+}
+
+.flow-section-title {
+    margin: 0 0 8px 0;
+}
+
+.flow-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+.flow-row + .flow-row {
+    margin-top: 8px;
+}
+
+.flow-node {
+    padding: 6px 10px;
+    background: var(--bg-secondary);
+    border-radius: var(--frame-radius);
+}
+
+.flow-arrow {
+    opacity: 0.7;
+}
+
+.flow-footnote {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}

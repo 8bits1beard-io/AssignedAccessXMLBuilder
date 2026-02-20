@@ -159,6 +159,12 @@ function buildBrowserKioskArgs(browser, url, kioskType) {
     return '';
 }
 
+function copyDeployCode(button) {
+    const code = button.closest('.deploy-code-wrapper')?.querySelector('.deploy-code');
+    if (!code) return;
+    copyToClipboard(code.textContent, button);
+}
+
 function parseEdgeKioskArgs(args) {
     const result = {
         mode: 'standard',

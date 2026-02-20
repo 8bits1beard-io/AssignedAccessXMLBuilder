@@ -362,6 +362,7 @@ const actionHandlers = {
     moveTaskbarPinUp,
     moveTaskbarPinDown,
     copyXml,
+    copyDeployCode,
     downloadXml,
     downloadPowerShell,
     downloadShortcutsScript,

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.7">
+    <link rel="stylesheet" href="styles.css?v=1.4.8">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.7
+                KIOSK OVERSEER // BUILD 1.4.8
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
@@ -1084,50 +1084,68 @@
                         <fieldset class="section">
                             <legend class="section-header" data-section-key="configSummary"></legend>
                             <div class="section-content">
-                                <div class="preview-meta" role="group" aria-label="Configuration summary">
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Profile</div>
-                                        <div class="preview-meta-value" id="previewProfileName">—</div>
+                                <div class="summary-cards" role="group" aria-label="Configuration summary">
+                                    <div class="summary-card">
+                                        <div class="summary-card-title">Profile</div>
+                                        <div class="summary-card-body">
+                                            <div class="summary-row">
+                                                <span class="summary-label">Name</span>
+                                                <span class="summary-value" id="previewProfileName">—</span>
+                                            </div>
+                                            <div class="summary-row">
+                                                <span class="summary-label">Account</span>
+                                                <span class="summary-value" id="previewAutoLogon">—</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Kiosk Mode</div>
-                                        <div class="preview-meta-value" id="previewKioskMode">—</div>
+                                    <div class="summary-card">
+                                        <div class="summary-card-title">Application</div>
+                                        <div class="summary-card-body">
+                                            <div class="summary-row">
+                                                <span class="summary-label">Kiosk Mode</span>
+                                                <span class="summary-value" id="previewKioskMode">—</span>
+                                            </div>
+                                            <div class="summary-row">
+                                                <span class="summary-label">Allowed Apps</span>
+                                                <span class="summary-value" id="previewAllowedApps">—</span>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Allowed Apps</div>
-                                        <div class="preview-meta-value" id="previewAllowedApps">—</div>
-                                    </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Start Pins</div>
-                                        <div class="preview-meta-value" id="previewStartPins">—</div>
-                                    </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Taskbar Pins</div>
-                                        <div class="preview-meta-value" id="previewToolbarPins">—</div>
-                                    </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Show Taskbar</div>
-                                        <div class="preview-meta-value" id="previewShowTaskbar">—</div>
-                                    </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">File Explorer</div>
-                                        <div class="preview-meta-value" id="previewFileExplorer">—</div>
-                                    </div>
-                                    <div class="preview-meta-item">
-                                        <div class="preview-meta-label">Auto Logon</div>
-                                        <div class="preview-meta-value" id="previewAutoLogon">—</div>
+                                    <div class="summary-card">
+                                        <div class="summary-card-title">Layout</div>
+                                        <div class="summary-card-body">
+                                            <div class="summary-row">
+                                                <span class="summary-label">Start Pins</span>
+                                                <span class="summary-value" id="previewStartPins">—</span>
+                                            </div>
+                                            <div class="summary-row">
+                                                <span class="summary-label">Taskbar Pins</span>
+                                                <span class="summary-value" id="previewToolbarPins">—</span>
+                                            </div>
+                                            <div class="summary-row">
+                                                <span class="summary-label">Show Taskbar</span>
+                                                <span class="summary-value" id="previewShowTaskbar">—</span>
+                                            </div>
+                                            <div class="summary-row">
+                                                <span class="summary-label">File Explorer</span>
+                                                <span class="summary-value" id="previewFileExplorer">—</span>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
-                                <div id="validationStatus" role="status" aria-live="polite" aria-atomic="true" style="margin: 16px 0;"></div>
+                                <div id="validationStatus" role="status" aria-live="polite" aria-atomic="true"></div>
 
-                                <div class="sub-panel" style="margin-top: 16px;">
+                                <div class="sub-panel export-panel">
                                     <div class="sub-panel-title">EXPORT</div>
-                                    <div class="preview-actions" role="group" aria-label="Export options">
-                                        <button type="button" class="btn-primary" data-action="downloadXml">Download XML</button>
-                                        <button type="button" class="btn-secondary" data-action="copyXml">Copy XML to Clipboard</button>
-                                        <button type="button" class="btn-secondary" data-action="downloadPowerShell" title="All-in-one script: applies XML, creates shortcuts, configures the kiosk.">All-In-One Script</button>
-                                        <button type="button" class="btn-secondary" data-action="downloadEdgeManifestWorkaround" title="Helps Windows honor Edge shortcut icons">Manifest Override</button>
+                                    <div class="export-grid" role="group" aria-label="Export options">
+                                        <button type="button" class="btn-primary export-btn-main" data-action="downloadXml">Download XML</button>
+                                        <div class="export-secondary">
+                                            <button type="button" class="btn-secondary" data-action="copyXml">Copy XML</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadPowerShell" title="All-in-one script: applies XML, creates shortcuts, configures the kiosk.">All-In-One Script</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadShortcutsScript">Shortcut Creator</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadEdgeManifestWorkaround" title="Helps Windows honor Edge shortcut icons">Manifest Override</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1185,7 +1203,10 @@
 
                     <div class="deploy-steps">
                         <div class="deploy-step">
-                            <h4>1. Navigate to Intune</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">1</span>
+                                <h4>Navigate to Intune</h4>
+                            </div>
                             <ul>
                                 <li>Go to <a href="https://intune.microsoft.com" target="_blank" rel="noopener noreferrer">Microsoft Intune admin center</a></li>
                                 <li>Select <strong>Devices</strong> → <strong>Configuration profiles</strong></li>
@@ -1193,7 +1214,10 @@
                         </div>
 
                         <div class="deploy-step">
-                            <h4>2. Create Profile</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">2</span>
+                                <h4>Create Profile</h4>
+                            </div>
                             <ul>
                                 <li>Click <strong>+ Create profile</strong></li>
                                 <li>Platform: <strong>Windows 10 and later</strong></li>
@@ -1202,7 +1226,10 @@
                         </div>
 
                         <div class="deploy-step">
-                            <h4>3. Configure OMA-URI</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">3</span>
+                                <h4>Configure OMA-URI</h4>
+                            </div>
                             <table class="oma-uri-table">
                                 <tr><th>Field</th><th>Value</th></tr>
                                 <tr><td>Name</td><td>AssignedAccess Configuration</td></tr>
@@ -1213,7 +1240,10 @@
                         </div>
 
                         <div class="deploy-step">
-                            <h4>4. Assign &amp; Deploy</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">4</span>
+                                <h4>Assign &amp; Deploy</h4>
+                            </div>
                             <ul>
                                 <li>Assign to a device group</li>
                                 <li>Device will reboot to apply</li>
@@ -1221,7 +1251,7 @@
                         </div>
                     </div>
 
-                    <div class="deploy-note">
+                    <div class="deploy-note deploy-note--warning">
                         <strong>Requirements:</strong> Device must be Azure AD joined or Hybrid Azure AD joined.
                     </div>
                 </div>
@@ -1232,21 +1262,33 @@
 
                     <div class="deploy-steps">
                         <div class="deploy-step">
-                            <h4>Option A: Using Our Deploy Script</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">A</span>
+                                <h4>Using Our Deploy Script</h4>
+                            </div>
                             <p>Download the script using the <strong>Download Deploy Script</strong> button, then run:</p>
-                            <pre class="deploy-code crt-pane">psexec -i -s powershell.exe -ExecutionPolicy Bypass -File "C:\path\to\Apply-AssignedAccess.ps1"</pre>
+                            <div class="deploy-code-wrapper">
+                                <pre class="deploy-code crt-pane">psexec -i -s powershell.exe -ExecutionPolicy Bypass -File "C:\path\to\Apply-AssignedAccess.ps1"</pre>
+                                <button type="button" class="deploy-code-copy btn-secondary btn-small" data-action="copyDeployCode">Copy</button>
+                            </div>
                         </div>
 
                         <div class="deploy-step">
-                            <h4>Option B: Manual Commands</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">B</span>
+                                <h4>Manual Commands</h4>
+                            </div>
                             <p>Run in SYSTEM context (via <code>psexec -i -s powershell.exe</code>):</p>
-                            <pre class="deploy-code crt-pane">$xml = Get-Content -Path "C:\path\to\config.xml" -Raw
+                            <div class="deploy-code-wrapper">
+                                <pre class="deploy-code crt-pane">$xml = Get-Content -Path "C:\path\to\config.xml" -Raw
 $bridge = Get-CimInstance -Namespace "root\cimv2\mdm\dmmap" -ClassName "MDM_AssignedAccess"
 Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
+                                <button type="button" class="deploy-code-copy btn-secondary btn-small" data-action="copyDeployCode">Copy</button>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="deploy-note">
+                    <div class="deploy-note deploy-note--info">
                         <strong>NOTE:</strong> PsExec can be downloaded from <a href="https://docs.microsoft.com/en-us/sysinternals/downloads/psexec" target="_blank" rel="noopener noreferrer">Microsoft Sysinternals</a>.
                     </div>
                 </div>
@@ -1257,14 +1299,20 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
 
                     <div class="deploy-steps">
                         <div class="deploy-step">
-                            <h4>1. Install Windows Configuration Designer</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">1</span>
+                                <h4>Install Windows Configuration Designer</h4>
+                            </div>
                             <ul>
                                 <li>Download from <a href="https://apps.microsoft.com/detail/9nblggh4tx22" target="_blank" rel="noopener noreferrer">Microsoft Store</a> or Windows ADK</li>
                             </ul>
                         </div>
 
                         <div class="deploy-step">
-                            <h4>2. Create Provisioning Package</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">2</span>
+                                <h4>Create Provisioning Package</h4>
+                            </div>
                             <ul>
                                 <li>Open Windows Configuration Designer</li>
                                 <li>Select <strong>Advanced provisioning</strong></li>
@@ -1274,7 +1322,10 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
                         </div>
 
                         <div class="deploy-step">
-                            <h4>3. Export &amp; Apply</h4>
+                            <div class="deploy-step-header">
+                                <span class="deploy-step-badge">3</span>
+                                <h4>Export &amp; Apply</h4>
+                            </div>
                             <ul>
                                 <li>Export → Provisioning package → Create</li>
                                 <li>Apply by double-clicking the .ppkg file or during Windows setup</li>
@@ -1282,44 +1333,44 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
                         </div>
                     </div>
 
-                    <div class="deploy-note">
+                    <div class="deploy-note deploy-note--tip">
                         <strong>TIP:</strong> Provisioning packages can be applied during OOBE by placing them on a USB drive.
                     </div>
                 </div>
 
                 <!-- Deployment Flow Tab -->
                 <div class="deploy-content" role="tabpanel" id="deploy-flow" aria-labelledby="deploy-tab-flow">
-                    <div style="display: flex; flex-direction: column; gap: 16px;">
-                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
-                            <h4 style="margin: 0 0 8px 0;">Flow 1: Deployment decision</h4>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Intune OMA-URI / MDM?</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Deploy XML only</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">If desktopAppLink pins, ensure shortcuts exist</div>
+                    <div class="flow-layout">
+                        <div class="flow-section">
+                            <h4 class="flow-section-title">Flow 1: Deployment decision</h4>
+                            <div class="flow-row">
+                                <div class="flow-node">Intune OMA-URI / MDM?</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Deploy XML only</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">If desktopAppLink pins, ensure shortcuts exist</div>
                             </div>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Not using Intune/MDM</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Local deployment with helper scripts</div>
-                            </div>
-                        </div>
-                        <div style="padding: 12px; background: var(--bg-tertiary); border-radius: var(--frame-radius);">
-                            <h4 style="margin: 0 0 8px 0;">Flow 2: Local deployment sequence</h4>
-                            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center;">
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Export artifacts</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Shortcut Creator (if desktopAppLink pins)</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Edge Manifest Workaround (optional)</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Run Apply Assigned Access</div>
-                                <div style="opacity: 0.7;">→</div>
-                                <div style="padding: 6px 10px; background: var(--bg-secondary); border-radius: var(--frame-radius);">Reboot and validate</div>
+                            <div class="flow-row">
+                                <div class="flow-node">Not using Intune/MDM</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Local deployment with helper scripts</div>
                             </div>
                         </div>
-                        <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                        <div class="flow-section">
+                            <h4 class="flow-section-title">Flow 2: Local deployment sequence</h4>
+                            <div class="flow-row">
+                                <div class="flow-node">Export artifacts</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Run Shortcut Creator (if desktopAppLink pins)</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Run Edge Manifest Workaround (optional)</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Run Apply Assigned Access</div>
+                                <div class="flow-arrow">→</div>
+                                <div class="flow-node">Reboot and validate</div>
+                            </div>
+                        </div>
+                        <div class="flow-footnote">
                             desktopAppLink pins reference .lnk shortcut paths. Shortcut Creator is only needed if those shortcuts do not already exist on the device. The Edge Manifest Workaround is optional and unsupported by Microsoft.
                         </div>
                     </div>
@@ -1333,14 +1384,14 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.7"></script>
-    <script src="state.js?v=1.4.7"></script>
-    <script src="helpers.js?v=1.4.7"></script>
-    <script src="xml.js?v=1.4.7"></script>
-    <script src="validation.js?v=1.4.7"></script>
-    <script src="app.js?v=1.4.7"></script>
-    <script src="apps.js?v=1.4.7"></script>
-    <script src="pins.js?v=1.4.7"></script>
-    <script src="config.js?v=1.4.7"></script>
+    <script src="dom.js?v=1.4.8"></script>
+    <script src="state.js?v=1.4.8"></script>
+    <script src="helpers.js?v=1.4.8"></script>
+    <script src="xml.js?v=1.4.8"></script>
+    <script src="validation.js?v=1.4.8"></script>
+    <script src="app.js?v=1.4.8"></script>
+    <script src="apps.js?v=1.4.8"></script>
+    <script src="pins.js?v=1.4.8"></script>
+    <script src="config.js?v=1.4.8"></script>
 </body>
 </html>
