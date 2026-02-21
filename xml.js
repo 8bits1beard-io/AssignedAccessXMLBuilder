@@ -13,7 +13,10 @@ function generateXml() {
     xml += `    xmlns:v5="http://schemas.microsoft.com/AssignedAccess/2022/config">\n`;
 
     xml += `    <Profiles>\n`;
-    xml += `        <Profile Id="${profileId}">\n`;
+    const profileName = escapeAttr(dom.get('configName').value.trim());
+    xml += profileName
+        ? `        <Profile Id="${profileId}" Name="${profileName}">\n`
+        : `        <Profile Id="${profileId}">\n`;
 
     if (state.mode === 'single') {
         xml += generateSingleAppProfile();

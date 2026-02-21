@@ -203,6 +203,16 @@ function applyConfigSnapshot(payload) {
    Preset Loading
    ============================================================================ */
 
+function loadPresetFromSelect() {
+    const select = dom.get('presetSelect');
+    const value = select.value;
+    if (value) {
+        loadPreset(value);
+        // Reset select to placeholder
+        select.selectedIndex = 0;
+    }
+}
+
 function loadPreset(preset) {
     // Reset state
     state.allowedApps = [];
@@ -305,6 +315,7 @@ function loadPreset(preset) {
 
 const actionHandlers = {
     loadPreset,
+    loadPresetFromSelect,
     loadConfig,
     saveConfigAs,
     showDeployHelp,

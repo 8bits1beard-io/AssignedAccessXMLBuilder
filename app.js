@@ -987,6 +987,22 @@ function getExportStatus() {
     return errors.length === 0 ? 'ready' : 'pending';
 }
 
+function updateTabIndicators() {
+    const errors = validate();
+    const tabNames = ['setup', 'application', 'startmenu', 'taskbar', 'summary'];
+    const errorsByTab = {};
+    tabNames.forEach(t => { errorsByTab[t] = false; });
+    errors.forEach(e => {
+        if (e.tab && errorsByTab.hasOwnProperty(e.tab)) {
+            errorsByTab[e.tab] = true;
+        }
+    });
+    tabNames.forEach(tab => {
+        const btn = document.getElementById(`tab-btn-${tab}`);
+        if (btn) btn.classList.toggle('tab-has-errors', errorsByTab[tab]);
+    });
+}
+
 /* ============================================================================
    Preview & Syntax Highlighting
    ============================================================================ */
@@ -1056,6 +1072,7 @@ function updatePreview() {
     const statusEl = dom.get('previewStatus');
     if (statusEl) statusEl.textContent = isValid ? 'Valid' : 'Errors';
     updateProgressRail();
+    updateTabIndicators();
 }
 
 /* ============================================================================
@@ -2334,5 +2351,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.querySelectorAll('.tooltip-icon').forEach(icon => {
         icon.addEventListener('mouseenter', () => positionTooltip(icon));
         icon.addEventListener('focus', () => positionTooltip(icon));
+    });
+
+    // Real-time field validation on blur
+    const validatedFields = ['configName', 'profileId', 'displayName', 'accountName', 'groupName', 'edgeUrl', 'edgeFilePath', 'uwpAumid', 'win32Path'];
+    validatedFields.forEach(fieldId => {
+        const input = document.getElementById(fieldId);
+        if (!input) return;
+        input.addEventListener('blur', () => {
+            const error = validateField(fieldId);
+            const parent = input.closest('.form-group') || input.parentElement;
+            let errorEl = parent.querySelector('.field-error');
+            if (error) {
+                input.classList.add('invalid');
+                if (!errorEl) {
+                    errorEl = document.createElement('span');
+                    errorEl.className = 'field-error';
+                    parent.appendChild(errorEl);
+                }
+                errorEl.textContent = error;
+            } else {
+                input.classList.remove('invalid');
+                if (errorEl) errorEl.remove();
+            }
+        });
     });
 });

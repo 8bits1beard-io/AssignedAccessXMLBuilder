@@ -2698,3 +2698,27 @@ label.with-tooltip {
     font-size: 0.75rem;
     color: var(--text-secondary);
 }
+
+/* ============================================
+   Tab Error Indicators
+   ============================================ */
+.side-nav-btn.tab-has-errors::after {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--error);
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* ============================================
+   Field Validation Inline Errors
+   ============================================ */
+.field-error {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--error);
+    margin-top: 4px;
+}
