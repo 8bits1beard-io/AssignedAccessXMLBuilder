@@ -105,14 +105,66 @@ function showValidation() {
     const errors = validate();
     const statusDiv = dom.get('validationStatus');
 
-    if (errors.length === 0) {
-        statusDiv.innerHTML = '';
-    } else {
-        statusDiv.innerHTML = `<div class="status error">
-            <strong>Validation Errors:</strong>
-            <ul style="margin: 5px 0 0 20px;">${errors.map(e => `<li>${e.message}</li>`).join('')}</ul>
-        </div>`;
+    const profileId = dom.get('profileId').value.trim();
+    const hasValidProfile = /^\{[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\}$/i.test(profileId);
+
+    let hasAccount = false;
+    if (state.accountType === 'auto') {
+        hasAccount = Boolean(dom.get('displayName').value.trim());
+    } else if (state.accountType === 'existing') {
+        hasAccount = Boolean(dom.get('accountName').value.trim());
+    } else if (state.accountType === 'group') {
+        hasAccount = Boolean(dom.get('groupName').value.trim());
+    } else if (state.accountType === 'global') {
+        hasAccount = true;
     }
+
+    let hasApp = false;
+    if (state.mode === 'single') {
+        const appType = dom.get('appType').value;
+        if (appType === 'edge') {
+            const src = dom.get('edgeSourceType').value;
+            hasApp = src === 'url' ? Boolean(dom.get('edgeUrl').value.trim()) : Boolean(dom.get('edgeFilePath').value.trim());
+        } else if (appType === 'uwp') {
+            hasApp = Boolean(dom.get('uwpAumid').value.trim());
+        } else if (appType === 'win32') {
+            hasApp = Boolean(dom.get('win32Path').value.trim());
+        }
+    } else {
+        hasApp = state.allowedApps.length > 0;
+    }
+
+    const hasConfigName = Boolean(dom.get('configName').value.trim());
+    const hasPins = state.mode === 'single' || state.startPins.length > 0;
+
+    const checks = [
+        { label: 'Configuration Name', ok: hasConfigName },
+        { label: 'Profile GUID', ok: hasValidProfile },
+        { label: 'Account configured', ok: hasAccount },
+        { label: 'App configured', ok: hasApp },
+        { label: 'Start pins', ok: hasPins, optional: state.mode !== 'single' }
+    ];
+
+    const checklistHtml = checks.map(c => {
+        let icon, cls;
+        if (c.ok) {
+            icon = 'OK'; cls = 'check-ok';
+        } else if (c.optional) {
+            icon = '--'; cls = 'check-optional';
+        } else {
+            icon = '!!'; cls = 'check-error';
+        }
+        return `<div class="validation-check ${cls}"><span class="validation-check-icon">${icon}</span> ${c.label}</div>`;
+    }).join('');
+
+    const errorHtml = errors.length > 0
+        ? `<div class="status error" style="margin-top: 10px;">
+            <strong>Errors:</strong>
+            <ul style="margin: 5px 0 0 20px;">${errors.map(e => `<li>${e.message}</li>`).join('')}</ul>
+        </div>`
+        : '';
+
+    statusDiv.innerHTML = `<div class="validation-checklist">${checklistHtml}</div>${errorHtml}`;
 
     return errors.length === 0;
 }

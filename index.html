@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self' https://static.cloudflareinsights.com; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; base-uri 'self'; form-action 'self'">
     <title>Kiosk Overseer (Windows Kiosk Builder)</title>
-    <link rel="stylesheet" href="styles.css?v=1.4.9">
+    <link rel="stylesheet" href="styles.css?v=1.5.0">
     <link rel="icon" type="image/png" href="assets/logo-mksa.png">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <header role="banner">
         <div class="header-top">
             <div class="header-system-label">
-                KIOSK OVERSEER // BUILD 1.4.9
+                KIOSK OVERSEER // BUILD 1.5.0
             </div>
             <nav class="header-actions command-strip" aria-label="Main actions">
                 <button type="button" class="btn-secondary" data-action="loadPreset" data-arg="blank">New</button>
@@ -510,8 +510,11 @@
                                 <p class="hint" style="margin-bottom: 8px;">
                                     <strong>NOTE:</strong> Common apps use default installation paths. If an app is installed in a custom location, use "Add Application" above instead.
                                 </p>
+                                <div style="margin-bottom: 8px;">
+                                    <input type="search" id="commonAppSearch" placeholder="Filter apps..." class="btn-small" style="width: 100%;" data-config-skip="true">
+                                </div>
                                 <div role="group" aria-labelledby="commonApps-label">
-                                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
+                                    <div class="common-app-category" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
                                         <strong style="width: 100%; font-size: 0.8rem; color: var(--text-secondary);">Browsers:</strong>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="edge">Edge</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="chrome">Chrome</button>
@@ -519,7 +522,7 @@
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="brave">Brave</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="island">Island</button>
                                     </div>
-                                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
+                                    <div class="common-app-category" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
                                         <strong style="width: 100%; font-size: 0.8rem; color: var(--text-secondary);">System Utilities:</strong>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="osk">On-Screen Keyboard</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="volume">Volume Control</button>
@@ -533,7 +536,7 @@
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="powershell7">PowerShell 7.x</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="terminal">Windows Terminal</button>
                                     </div>
-                                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
+                                    <div class="common-app-category" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
                                         <strong style="width: 100%; font-size: 0.8rem; color: var(--text-secondary);">Productivity:</strong>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="calculator">Calculator</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="notepad">Notepad</button>
@@ -541,7 +544,7 @@
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="snipSketch">Snipping Tool</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="stickyNotes">Sticky Notes</button>
                                     </div>
-                                    <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
+                                    <div class="common-app-category" style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px;">
                                         <strong style="width: 100%; font-size: 0.8rem; color: var(--text-secondary);">Media &amp; Communication:</strong>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="photos">Photos</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="camera">Camera</button>
@@ -549,7 +552,7 @@
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="teams">Teams</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="zoom">Zoom</button>
                                     </div>
-                                    <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                                    <div class="common-app-category" style="display: flex; gap: 5px; flex-wrap: wrap;">
                                         <strong style="width: 100%; font-size: 0.8rem; color: var(--text-secondary);">Microsoft Office:</strong>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="word">Word</button>
                                         <button type="button" class="btn-secondary btn-small" data-action="addCommonApp" data-arg="excel">Excel</button>
@@ -715,40 +718,15 @@
                                             <option value="">Use allowed app (optional)</option>
                                         </select>
                                     </div>
+                                    <details class="pin-advanced-options">
+                                        <summary class="btn-secondary btn-small">Advanced Options</summary>
+                                        <div class="pin-advanced-body">
                                     <div>
                                         <label for="pinArgs" style="font-size: 0.75rem; color: var(--text-secondary);">Arguments (optional)</label>
                                         <input type="text" id="pinArgs" placeholder="e.g., --kiosk https://example.com --edge-kiosk-type=fullscreen" style="width: 100%;">
                                     </div>
                                     <div id="pinEdgeArgsGroup" class="edge-args-group hidden" aria-hidden="true">
-                                        <label style="font-size: 0.75rem; color: var(--text-secondary);">Kiosk Mode (optional)</label>
-                                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                            <div style="flex: 1; min-width: 160px;">
-                                                <select id="pinEdgeArgsMode" data-change="updatePinEdgeArgsModeUI" style="width: 100%;">
-                                                    <option value="standard">Standard</option>
-                                                    <option value="kioskFullscreen">Kiosk Fullscreen</option>
-                                                    <option value="kioskPublic">Kiosk Public Browsing</option>
-                                                </select>
-                                            </div>
-                                            <button type="button" class="btn-secondary btn-small" data-action="applyEdgeArgsToPin">Apply Edge Args</button>
-                                        </div>
-                                        <div id="pinEdgeArgsSourceConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                            <div style="display: flex; gap: 8px; align-items: center;">
-                                                <select id="pinEdgeArgsSourceType" data-change="updatePinEdgeArgsSourceUI" style="width: 140px;">
-                                                    <option value="url">Web URL</option>
-                                                    <option value="file">Local File</option>
-                                                </select>
-                                                <div id="pinEdgeArgsUrlConfig" style="flex: 1;">
-                                                    <input type="text" id="pinEdgeArgsUrl" placeholder="https://example.com" style="width: 100%;">
-                                                </div>
-                                                <div id="pinEdgeArgsFileConfig" class="hidden" style="flex: 1;" aria-hidden="true">
-                                                    <input type="text" id="pinEdgeArgsFilePath" placeholder="C:\\Kiosk\\index.html" style="width: 100%;">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div id="pinEdgeArgsIdleConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                            <label for="pinEdgeArgsIdle" style="font-size: 0.75rem; color: var(--text-secondary);">Idle Timeout (minutes)</label>
-                                            <input type="number" id="pinEdgeArgsIdle" min="0" placeholder="0" style="width: 120px;">
-                                        </div>
+                                        <button type="button" class="btn-secondary btn-small" data-action="openEdgeArgsModal" data-arg="pin">Configure Kiosk Mode...</button>
                                     </div>
                                     <div style="display: flex; gap: 8px;">
                                         <div style="flex: 1;">
@@ -760,6 +738,8 @@
                                             <input type="text" id="pinIconPath" placeholder="e.g., C:\path\to\icon.ico" style="width: 100%;">
                                         </div>
                                     </div>
+                                        </div>
+                                    </details>
                                     <button type="button" class="btn-primary" data-action="addPin" style="align-self: flex-start;">Add Shortcut</button>
                                 </div>
                             </div>
@@ -837,35 +817,7 @@
                                             </div>
                                         </div>
                                         <div id="editPinEdgeArgsGroup" class="edge-args-group hidden" aria-hidden="true" style="margin-top: 8px;">
-                                            <label style="font-size: 0.75rem; color: var(--text-secondary);">Kiosk Mode (optional)</label>
-                                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                                <div style="flex: 1; min-width: 160px;">
-                                                    <select id="editPinEdgeArgsMode" data-change="updateEditPinEdgeArgsModeUI" style="width: 100%;">
-                                                        <option value="standard">Standard</option>
-                                                        <option value="kioskFullscreen">Kiosk Fullscreen</option>
-                                                        <option value="kioskPublic">Kiosk Public Browsing</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="btn-secondary btn-small" data-action="applyEdgeArgsToEditPin">Apply Edge Args</button>
-                                            </div>
-                                            <div id="editPinEdgeArgsSourceConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <div style="display: flex; gap: 8px; align-items: center;">
-                                                    <select id="editPinEdgeArgsSourceType" data-change="updateEditPinEdgeArgsSourceUI" style="width: 140px;">
-                                                        <option value="url">Web URL</option>
-                                                        <option value="file">Local File</option>
-                                                    </select>
-                                                    <div id="editPinEdgeArgsUrlConfig" style="flex: 1;">
-                                                        <input type="text" id="editPinEdgeArgsUrl" placeholder="https://example.com" style="width: 100%;">
-                                                    </div>
-                                                    <div id="editPinEdgeArgsFileConfig" class="hidden" style="flex: 1;" aria-hidden="true">
-                                                        <input type="text" id="editPinEdgeArgsFilePath" placeholder="C:\\Kiosk\\index.html" style="width: 100%;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="editPinEdgeArgsIdleConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <label for="editPinEdgeArgsIdle" style="font-size: 0.75rem; color: var(--text-secondary);">Idle Timeout (minutes)</label>
-                                                <input type="number" id="editPinEdgeArgsIdle" min="0" placeholder="0" style="width: 120px;">
-                                            </div>
+                                            <button type="button" class="btn-secondary btn-small" data-action="openEdgeArgsModal" data-arg="editPin">Configure Kiosk Mode...</button>
                                         </div>
                                         <div style="display: flex; gap: 8px; margin-top: 8px;">
                                             <div style="flex: 1;">
@@ -950,18 +902,6 @@
                                                 <label for="taskbarPinTarget" style="font-size: 0.75rem; color: var(--text-secondary);">Target Path *</label>
                                                 <input type="text" id="taskbarPinTarget" placeholder="C:\\Program Files\\Microsoft\\Edge\\Application\\msedge.exe" style="width: 100%;">
                                             </div>
-                                            <div style="flex: 1;">
-                                                <label for="taskbarPinArgs" style="font-size: 0.75rem; color: var(--text-secondary);">Arguments</label>
-                                                <input type="text" id="taskbarPinArgs" placeholder="--kiosk https://example.com" style="width: 100%;">
-                                            </div>
-                                        </div>
-                                        <div style="margin-top: 8px;">
-                                            <label for="taskbarPinWorkingDir" style="font-size: 0.75rem; color: var(--text-secondary);">Working Directory</label>
-                                            <input type="text" id="taskbarPinWorkingDir" placeholder="C:\\Program Files\\Microsoft\\Edge\\Application" style="width: 100%;">
-                                        </div>
-                                        <div style="margin-top: 8px;">
-                                            <label for="taskbarPinIconPath" style="font-size: 0.75rem; color: var(--text-secondary);">Icon Path (optional, shortcuts only)</label>
-                                            <input type="text" id="taskbarPinIconPath" placeholder="C:\\path\\to\\icon.ico" style="width: 100%;">
                                         </div>
                                         <div style="margin-top: 8px;">
                                             <label for="taskbarPinTargetPreset" style="font-size: 0.75rem; color: var(--text-secondary);">Use Allowed App</label>
@@ -969,37 +909,26 @@
                                                 <option value="">Select allowed app</option>
                                             </select>
                                         </div>
+                                        <details class="pin-advanced-options">
+                                            <summary class="btn-secondary btn-small">Advanced Options</summary>
+                                            <div class="pin-advanced-body">
+                                            <div>
+                                                <label for="taskbarPinArgs" style="font-size: 0.75rem; color: var(--text-secondary);">Arguments</label>
+                                                <input type="text" id="taskbarPinArgs" placeholder="--kiosk https://example.com" style="width: 100%;">
+                                            </div>
+                                            <div>
+                                                <label for="taskbarPinWorkingDir" style="font-size: 0.75rem; color: var(--text-secondary);">Working Directory</label>
+                                                <input type="text" id="taskbarPinWorkingDir" placeholder="C:\\Program Files\\Microsoft\\Edge\\Application" style="width: 100%;">
+                                            </div>
+                                            <div>
+                                                <label for="taskbarPinIconPath" style="font-size: 0.75rem; color: var(--text-secondary);">Icon Path (optional, shortcuts only)</label>
+                                                <input type="text" id="taskbarPinIconPath" placeholder="C:\\path\\to\\icon.ico" style="width: 100%;">
+                                            </div>
                                         <div id="taskbarPinEdgeArgsGroup" class="edge-args-group hidden" aria-hidden="true" style="margin-top: 8px;">
-                                            <label style="font-size: 0.75rem; color: var(--text-secondary);">Kiosk Mode (optional)</label>
-                                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                                <div style="flex: 1; min-width: 160px;">
-                                                    <select id="taskbarPinEdgeArgsMode" data-change="updateTaskbarPinEdgeArgsModeUI" style="width: 100%;">
-                                                        <option value="standard">Standard</option>
-                                                        <option value="kioskFullscreen">Kiosk Fullscreen</option>
-                                                        <option value="kioskPublic">Kiosk Public Browsing</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="btn-secondary btn-small" data-action="applyEdgeArgsToTaskbarPin">Apply Edge Args</button>
-                                            </div>
-                                            <div id="taskbarPinEdgeArgsSourceConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <div style="display: flex; gap: 8px; align-items: center;">
-                                                    <select id="taskbarPinEdgeArgsSourceType" data-change="updateTaskbarPinEdgeArgsSourceUI" style="width: 140px;">
-                                                        <option value="url">Web URL</option>
-                                                        <option value="file">Local File</option>
-                                                    </select>
-                                                    <div id="taskbarPinEdgeArgsUrlConfig" style="flex: 1;">
-                                                        <input type="text" id="taskbarPinEdgeArgsUrl" placeholder="https://example.com" style="width: 100%;">
-                                                    </div>
-                                                    <div id="taskbarPinEdgeArgsFileConfig" class="hidden" style="flex: 1;" aria-hidden="true">
-                                                        <input type="text" id="taskbarPinEdgeArgsFilePath" placeholder="C:\\Kiosk\\index.html" style="width: 100%;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="taskbarPinEdgeArgsIdleConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <label for="taskbarPinEdgeArgsIdle" style="font-size: 0.75rem; color: var(--text-secondary);">Idle Timeout (minutes)</label>
-                                                <input type="number" id="taskbarPinEdgeArgsIdle" min="0" placeholder="0" style="width: 120px;">
-                                            </div>
+                                            <button type="button" class="btn-secondary btn-small" data-action="openEdgeArgsModal" data-arg="taskbarPin">Configure Kiosk Mode...</button>
                                         </div>
+                                            </div>
+                                        </details>
                                     </div>
                                     <button type="button" class="btn-primary" data-action="addTaskbarPin" style="align-self: flex-start;">Add Taskbar Pin</button>
                                 </div>
@@ -1057,35 +986,7 @@
                                             <input type="text" id="editTaskbarPinIconPath" style="width: 100%;">
                                         </div>
                                         <div id="editTaskbarEdgeArgsGroup" class="edge-args-group hidden" aria-hidden="true" style="margin-top: 8px;">
-                                            <label style="font-size: 0.75rem; color: var(--text-secondary);">Kiosk Mode (optional)</label>
-                                            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                                <div style="flex: 1; min-width: 160px;">
-                                                    <select id="editTaskbarEdgeArgsMode" data-change="updateEditTaskbarEdgeArgsModeUI" style="width: 100%;">
-                                                        <option value="standard">Standard</option>
-                                                        <option value="kioskFullscreen">Kiosk Fullscreen</option>
-                                                        <option value="kioskPublic">Kiosk Public Browsing</option>
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="btn-secondary btn-small" data-action="applyEdgeArgsToEditTaskbarPin">Apply Edge Args</button>
-                                            </div>
-                                            <div id="editTaskbarEdgeArgsSourceConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <div style="display: flex; gap: 8px; align-items: center;">
-                                                    <select id="editTaskbarEdgeArgsSourceType" data-change="updateEditTaskbarEdgeArgsSourceUI" style="width: 140px;">
-                                                        <option value="url">Web URL</option>
-                                                        <option value="file">Local File</option>
-                                                    </select>
-                                                    <div id="editTaskbarEdgeArgsUrlConfig" style="flex: 1;">
-                                                        <input type="text" id="editTaskbarEdgeArgsUrl" placeholder="https://example.com" style="width: 100%;">
-                                                    </div>
-                                                    <div id="editTaskbarEdgeArgsFileConfig" class="hidden" style="flex: 1;" aria-hidden="true">
-                                                        <input type="text" id="editTaskbarEdgeArgsFilePath" placeholder="C:\\Kiosk\\index.html" style="width: 100%;">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="editTaskbarEdgeArgsIdleConfig" class="hidden" aria-hidden="true" style="margin-top: 8px;">
-                                                <label for="editTaskbarEdgeArgsIdle" style="font-size: 0.75rem; color: var(--text-secondary);">Idle Timeout (minutes)</label>
-                                                <input type="number" id="editTaskbarEdgeArgsIdle" min="0" placeholder="0" style="width: 120px;">
-                                            </div>
+                                            <button type="button" class="btn-secondary btn-small" data-action="openEdgeArgsModal" data-arg="editTaskbar">Configure Kiosk Mode...</button>
                                         </div>
                                     </div>
                                     <div style="display: flex; gap: 8px;">
@@ -1158,13 +1059,19 @@
 
                                 <div class="sub-panel export-panel">
                                     <div class="sub-panel-title">EXPORT</div>
+                                    <div class="export-method-selector" role="group" aria-label="Deployment method">
+                                        <button type="button" class="btn-secondary btn-small export-method active" data-action="switchExportMethod" data-arg="intune">Intune / MDM</button>
+                                        <button type="button" class="btn-secondary btn-small export-method" data-action="switchExportMethod" data-arg="local">Local / Script</button>
+                                        <button type="button" class="btn-secondary btn-small export-method" data-action="switchExportMethod" data-arg="ppkg">Provisioning Pkg</button>
+                                    </div>
+                                    <div class="export-guidance" id="exportGuidance">Download the XML and paste it into an Intune OMA-URI custom policy. See Deploy Guide for full steps.</div>
                                     <div class="export-grid" role="group" aria-label="Export options">
-                                        <button type="button" class="btn-primary export-btn-main" data-action="downloadXml">Download XML</button>
+                                        <button type="button" class="btn-primary export-btn-main" data-action="downloadXml" data-export="intune local ppkg">Download XML</button>
                                         <div class="export-secondary">
-                                            <button type="button" class="btn-secondary" data-action="copyXml">Copy XML</button>
-                                            <button type="button" class="btn-secondary" data-action="downloadPowerShell" title="All-in-one script: applies XML, creates shortcuts, configures the kiosk.">All-In-One Script</button>
-                                            <button type="button" class="btn-secondary" data-action="downloadShortcutsScript">Shortcut Creator</button>
-                                            <button type="button" class="btn-secondary" data-action="downloadEdgeManifestWorkaround" title="Helps Windows honor Edge shortcut icons">Manifest Override</button>
+                                            <button type="button" class="btn-secondary" data-action="copyXml" data-export="intune ppkg">Copy XML</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadPowerShell" title="All-in-one script: applies XML, creates shortcuts, configures the kiosk." data-export="local">All-In-One Script</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadShortcutsScript" data-export="local">Shortcut Creator</button>
+                                            <button type="button" class="btn-secondary" data-action="downloadEdgeManifestWorkaround" title="Helps Windows honor Edge shortcut icons" data-export="local">Manifest Override</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1404,14 +1311,62 @@ Set-CimInstance -CimInstance $bridge -Property @{Configuration = $xml}</pre>
         </div>
     </div>
 
-    <script src="dom.js?v=1.4.9"></script>
-    <script src="state.js?v=1.4.9"></script>
-    <script src="helpers.js?v=1.4.9"></script>
-    <script src="xml.js?v=1.4.9"></script>
-    <script src="validation.js?v=1.4.9"></script>
-    <script src="app.js?v=1.4.9"></script>
-    <script src="apps.js?v=1.4.9"></script>
-    <script src="pins.js?v=1.4.9"></script>
-    <script src="config.js?v=1.4.9"></script>
+    <!-- Edge Kiosk Args Modal -->
+    <div id="edgeArgsModal" class="modal hidden" role="dialog" aria-labelledby="edgeArgsModalTitle" aria-modal="true">
+        <div class="modal-backdrop" data-action="hideEdgeArgsModal"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="edgeArgsModalTitle">Configure Kiosk Mode</h2>
+                <button type="button" class="modal-close" data-action="hideEdgeArgsModal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="form-group">
+                    <label for="modalEdgeArgsMode" style="font-size: 0.75rem; color: var(--text-secondary);">Kiosk Mode</label>
+                    <select id="modalEdgeArgsMode" data-change="updateModalEdgeArgsModeUI" style="width: 100%;">
+                        <option value="standard">Standard (no kiosk args)</option>
+                        <option value="kioskFullscreen">Kiosk Fullscreen</option>
+                        <option value="kioskPublic">Kiosk Public Browsing</option>
+                    </select>
+                </div>
+                <div id="modalEdgeArgsSourceConfig" class="hidden" aria-hidden="true">
+                    <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+                        <div>
+                            <label for="modalEdgeArgsSourceType" style="font-size: 0.75rem; color: var(--text-secondary);">Source</label>
+                            <select id="modalEdgeArgsSourceType" data-change="updateModalEdgeArgsSourceUI" style="width: 140px;">
+                                <option value="url">Web URL</option>
+                                <option value="file">Local File</option>
+                            </select>
+                        </div>
+                        <div id="modalEdgeArgsUrlConfig" style="flex: 1; min-width: 200px;">
+                            <label for="modalEdgeArgsUrl" style="font-size: 0.75rem; color: var(--text-secondary);">URL</label>
+                            <input type="text" id="modalEdgeArgsUrl" placeholder="https://example.com" style="width: 100%;">
+                        </div>
+                        <div id="modalEdgeArgsFileConfig" class="hidden" aria-hidden="true" style="flex: 1; min-width: 200px;">
+                            <label for="modalEdgeArgsFilePath" style="font-size: 0.75rem; color: var(--text-secondary);">File Path</label>
+                            <input type="text" id="modalEdgeArgsFilePath" placeholder="C:\\Kiosk\\index.html" style="width: 100%;">
+                        </div>
+                    </div>
+                </div>
+                <div id="modalEdgeArgsIdleConfig" class="hidden" aria-hidden="true">
+                    <label for="modalEdgeArgsIdle" style="font-size: 0.75rem; color: var(--text-secondary);">Idle Timeout (minutes)</label>
+                    <input type="number" id="modalEdgeArgsIdle" min="0" placeholder="0" style="width: 120px;">
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 8px;">
+                    <button type="button" class="btn-primary btn-small" data-action="applyEdgeArgsModal">Apply</button>
+                    <button type="button" class="btn-secondary btn-small" data-action="hideEdgeArgsModal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="dom.js?v=1.5.0"></script>
+    <script src="state.js?v=1.5.0"></script>
+    <script src="helpers.js?v=1.5.0"></script>
+    <script src="xml.js?v=1.5.0"></script>
+    <script src="validation.js?v=1.5.0"></script>
+    <script src="app.js?v=1.5.0"></script>
+    <script src="apps.js?v=1.5.0"></script>
+    <script src="pins.js?v=1.5.0"></script>
+    <script src="config.js?v=1.5.0"></script>
 </body>
 </html>

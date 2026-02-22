@@ -362,27 +362,6 @@ function editPin(index) {
         dom.get('editPinIconPath').value = pin.iconPath || '';
         dom.get('editPinShortcutPath').value = pin.systemShortcut || '';
         updateEdgeArgsVisibility('editPin', 'editPinTarget', 'editPinEdgeArgsGroup');
-
-        // Parse and restore Edge kiosk args if this is a browser with kiosk support
-        if (isBrowserWithKioskSupport(pin.target)) {
-            const parsed = parseEdgeKioskArgs(pin.args);
-            dom.get('editPinEdgeArgsMode').value = parsed.mode;
-            dom.get('editPinEdgeArgsSourceType').value = parsed.sourceType;
-            if (parsed.sourceType === 'file') {
-                // Convert file:/// URL back to path for display
-                let filePath = parsed.url;
-                if (filePath.toLowerCase().startsWith('file:///')) {
-                    filePath = decodeURIComponent(filePath.substring(8)).replace(/\//g, '\\');
-                }
-                dom.get('editPinEdgeArgsFilePath').value = filePath;
-                dom.get('editPinEdgeArgsUrl').value = '';
-            } else {
-                dom.get('editPinEdgeArgsUrl').value = parsed.url;
-                dom.get('editPinEdgeArgsFilePath').value = '';
-            }
-            dom.get('editPinEdgeArgsIdle').value = parsed.idleTimeout || '';
-            updateEdgeArgsModeUI('editPin');
-        }
     } else if (pin.pinType === 'packagedAppId') {
         dom.get('editPinPackagedAppId').value = pin.packagedAppId || '';
     } else if (pin.pinType === 'secondaryTile') {
@@ -411,26 +390,6 @@ function editTaskbarPin(index) {
 
     updateEdgeArgsVisibility('editTaskbar', 'editTaskbarPinTarget', 'editTaskbarEdgeArgsGroup');
     updateEditTaskbarPinTypeUI();
-
-    // Parse and restore Edge kiosk args if this is a browser with kiosk support
-    if (pin.pinType === 'desktopAppLink' && isBrowserWithKioskSupport(pin.target)) {
-        const parsed = parseEdgeKioskArgs(pin.args);
-        dom.get('editTaskbarEdgeArgsMode').value = parsed.mode;
-        dom.get('editTaskbarEdgeArgsSourceType').value = parsed.sourceType;
-        if (parsed.sourceType === 'file') {
-            let filePath = parsed.url;
-            if (filePath.toLowerCase().startsWith('file:///')) {
-                filePath = decodeURIComponent(filePath.substring(8)).replace(/\//g, '\\');
-            }
-            dom.get('editTaskbarEdgeArgsFilePath').value = filePath;
-            dom.get('editTaskbarEdgeArgsUrl').value = '';
-        } else {
-            dom.get('editTaskbarEdgeArgsUrl').value = parsed.url;
-            dom.get('editTaskbarEdgeArgsFilePath').value = '';
-        }
-        dom.get('editTaskbarEdgeArgsIdle').value = parsed.idleTimeout || '';
-        updateEdgeArgsModeUI('editTaskbar');
-    }
 
     dom.get('taskbarEditPanel').classList.remove('hidden');
     dom.get('taskbarEditPanel').setAttribute('aria-hidden', 'false');

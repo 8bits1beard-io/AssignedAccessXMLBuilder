@@ -430,6 +430,9 @@ main {
     flex-direction: column;
     gap: 6px;
     height: fit-content;
+    position: sticky;
+    top: 24px;
+    align-self: start;
 }
 
 
@@ -2567,6 +2570,33 @@ label.with-tooltip {
     margin-top: 16px;
 }
 
+.export-method-selector {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.export-method.active {
+    background: var(--accent);
+    color: var(--bg-primary);
+    border-color: var(--accent);
+}
+
+.export-guidance {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-left: 3px solid var(--accent);
+    background: var(--bg-tertiary);
+    border-radius: 0 var(--frame-radius) var(--frame-radius) 0;
+}
+
+.export-dimmed {
+    opacity: 0.4;
+}
+
 .export-grid {
     display: flex;
     flex-direction: column;
@@ -2721,4 +2751,67 @@ label.with-tooltip {
     font-size: 0.8rem;
     color: var(--error);
     margin-top: 4px;
+}
+
+/* ============================================
+   Validation Checklist
+   ============================================ */
+.validation-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px;
+    background: var(--bg-tertiary);
+    border-radius: var(--frame-radius);
+    font-size: 0.85rem;
+}
+
+.validation-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.validation-check-icon {
+    font-weight: 700;
+    font-size: 0.75rem;
+    min-width: 20px;
+    text-align: center;
+}
+
+.check-ok .validation-check-icon {
+    color: var(--success);
+}
+
+.check-error .validation-check-icon {
+    color: var(--error);
+}
+
+.check-optional .validation-check-icon {
+    color: var(--warning);
+}
+
+/* ============================================
+   Pin Advanced Options
+   ============================================ */
+.pin-advanced-options {
+    margin-top: 8px;
+}
+
+.pin-advanced-options summary {
+    cursor: pointer;
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.pin-advanced-options summary::-webkit-details-marker {
+    display: none;
+}
+
+.pin-advanced-body {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }

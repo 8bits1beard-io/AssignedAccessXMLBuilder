@@ -586,36 +586,12 @@ function updateEdgeArgsSourceUI(prefix) {
     syncEdgeArgsField(prefix);
 }
 
-function updatePinEdgeArgsModeUI() {
-    updateEdgeArgsModeUI('pin');
+function updateModalEdgeArgsModeUI() {
+    updateEdgeArgsModeUI('modal');
 }
 
-function updatePinEdgeArgsSourceUI() {
-    updateEdgeArgsSourceUI('pin');
-}
-
-function updateEditPinEdgeArgsModeUI() {
-    updateEdgeArgsModeUI('editPin');
-}
-
-function updateEditPinEdgeArgsSourceUI() {
-    updateEdgeArgsSourceUI('editPin');
-}
-
-function updateTaskbarPinEdgeArgsModeUI() {
-    updateEdgeArgsModeUI('taskbarPin');
-}
-
-function updateTaskbarPinEdgeArgsSourceUI() {
-    updateEdgeArgsSourceUI('taskbarPin');
-}
-
-function updateEditTaskbarEdgeArgsModeUI() {
-    updateEdgeArgsModeUI('editTaskbar');
-}
-
-function updateEditTaskbarEdgeArgsSourceUI() {
-    updateEdgeArgsSourceUI('editTaskbar');
+function updateModalEdgeArgsSourceUI() {
+    updateEdgeArgsSourceUI('modal');
 }
 
 function buildEdgeArgsFromUi(prefix, options = {}) {
@@ -684,6 +660,8 @@ function syncEdgeArgsField(prefix) {
     };
     const ids = fieldMap[prefix];
     if (!ids) return;
+    // Skip sync when inline edge args elements don't exist (using modal instead)
+    if (!dom.get(`${prefix}EdgeArgsMode`)) return;
     const targetInput = dom.get(ids[0]);
     const argsInput = dom.get(ids[1]);
     if (!targetInput || !argsInput) return;
@@ -704,6 +682,10 @@ function updateEdgeArgsVisibility(prefix, targetInputId, groupId) {
     const show = isBrowserWithKioskSupport(targetInput.value);
     group.classList.toggle('hidden', !show);
     group.setAttribute('aria-hidden', !show);
+    if (show) {
+        const details = group.closest('details.pin-advanced-options');
+        if (details) details.open = true;
+    }
 }
 
 function getEdgeArgsPrefixFromId(id) {
@@ -748,20 +730,64 @@ function applyEdgeArgs(prefix, targetInputId, argsInputId) {
     }
 }
 
-function applyEdgeArgsToPin() {
-    applyEdgeArgs('pin', 'pinTarget', 'pinArgs');
+let edgeArgsModalContext = null;
+
+const EDGE_ARGS_FIELD_MAP = {
+    pin: { targetId: 'pinTarget', argsId: 'pinArgs' },
+    editPin: { targetId: 'editPinTarget', argsId: 'editPinArgs' },
+    taskbarPin: { targetId: 'taskbarPinTarget', argsId: 'taskbarPinArgs' },
+    editTaskbar: { targetId: 'editTaskbarPinTarget', argsId: 'editTaskbarPinArgs' }
+};
+
+function openEdgeArgsModal(prefix) {
+    const ctx = EDGE_ARGS_FIELD_MAP[prefix];
+    if (!ctx) return;
+    edgeArgsModalContext = { ...ctx, prefix };
+
+    // Parse current args to pre-populate modal
+    const argsInput = dom.get(ctx.argsId);
+    const targetInput = dom.get(ctx.targetId);
+    const currentArgs = argsInput?.value || '';
+    const parsed = parseEdgeKioskArgs(currentArgs);
+
+    dom.get('modalEdgeArgsMode').value = parsed.mode;
+    if (parsed.sourceType === 'file') {
+        let filePath = parsed.url;
+        if (filePath.toLowerCase().startsWith('file:///')) {
+            filePath = decodeURIComponent(filePath.substring(8)).replace(/\//g, '\\');
+        }
+        dom.get('modalEdgeArgsFilePath').value = filePath;
+        dom.get('modalEdgeArgsUrl').value = '';
+    } else {
+        dom.get('modalEdgeArgsUrl').value = parsed.url;
+        dom.get('modalEdgeArgsFilePath').value = '';
+    }
+    dom.get('modalEdgeArgsSourceType').value = parsed.sourceType;
+    dom.get('modalEdgeArgsIdle').value = parsed.idleTimeout || '';
+
+    updateEdgeArgsModeUI('modal');
+
+    const modal = document.getElementById('edgeArgsModal');
+    modal.classList.remove('hidden');
+    modal.setAttribute('aria-hidden', 'false');
 }
 
-function applyEdgeArgsToEditPin() {
-    applyEdgeArgs('editPin', 'editPinTarget', 'editPinArgs');
+function applyEdgeArgsModal() {
+    if (!edgeArgsModalContext) return;
+    const targetInput = dom.get(edgeArgsModalContext.targetId);
+    const argsInput = dom.get(edgeArgsModalContext.argsId);
+    if (!targetInput || !argsInput) return;
+
+    const args = buildBrowserArgsFromUi('modal', targetInput.value);
+    argsInput.value = args || '';
+    hideEdgeArgsModal();
 }
 
-function applyEdgeArgsToTaskbarPin() {
-    applyEdgeArgs('taskbarPin', 'taskbarPinTarget', 'taskbarPinArgs');
-}
-
-function applyEdgeArgsToEditTaskbarPin() {
-    applyEdgeArgs('editTaskbar', 'editTaskbarPinTarget', 'editTaskbarPinArgs');
+function hideEdgeArgsModal() {
+    const modal = document.getElementById('edgeArgsModal');
+    modal.classList.add('hidden');
+    modal.setAttribute('aria-hidden', 'true');
+    edgeArgsModalContext = null;
 }
 
 function getEdgeUrl() {
@@ -1095,6 +1121,26 @@ function getConfigFileName(extension) {
         return `AssignedAccess-${sanitized}.${extension}`;
     }
     return `AssignedAccessConfig.${extension}`;
+}
+
+function switchExportMethod(method) {
+    const guidance = {
+        intune: 'Download the XML and paste it into an Intune OMA-URI custom policy. See Deploy Guide for full steps.',
+        local: 'Download the All-In-One Script to apply the XML, create shortcuts, and configure the kiosk. Run as SYSTEM.',
+        ppkg: 'Download the XML and paste it into Windows Configuration Designer under AssignedAccess > AssignedAccessSettings.'
+    };
+
+    const el = document.getElementById('exportGuidance');
+    if (el) el.textContent = guidance[method] || '';
+
+    document.querySelectorAll('.export-method').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.arg === method);
+    });
+
+    document.querySelectorAll('[data-export]').forEach(btn => {
+        const methods = btn.dataset.export.split(' ');
+        btn.classList.toggle('export-dimmed', !methods.includes(method));
+    });
 }
 
 function downloadXml() {
@@ -2264,10 +2310,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     updatePinTargetPresets();
     updateTaskbarPinTypeUI();
     updateEditTaskbarPinTypeUI();
-    updatePinEdgeArgsModeUI();
-    updateEditPinEdgeArgsModeUI();
-    updateTaskbarPinEdgeArgsModeUI();
-    updateEditTaskbarEdgeArgsModeUI();
     updateEdgeArgsVisibility('pin', 'pinTarget', 'pinEdgeArgsGroup');
     updateEdgeArgsVisibility('editPin', 'editPinTarget', 'editPinEdgeArgsGroup');
     updateEdgeArgsVisibility('taskbarPin', 'taskbarPinTarget', 'taskbarPinEdgeArgsGroup');
@@ -2352,6 +2394,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         icon.addEventListener('mouseenter', () => positionTooltip(icon));
         icon.addEventListener('focus', () => positionTooltip(icon));
     });
+
+    // Common apps search filter
+    const commonAppSearch = document.getElementById('commonAppSearch');
+    if (commonAppSearch) {
+        commonAppSearch.addEventListener('input', filterCommonApps);
+    }
 
     // Real-time field validation on blur
     const validatedFields = ['configName', 'profileId', 'displayName', 'accountName', 'groupName', 'edgeUrl', 'edgeFilePath', 'uwpAumid', 'win32Path'];

@@ -241,3 +241,16 @@ function updateMultiAppEdgeUI() {
         }
     }
 }
+
+function filterCommonApps() {
+    const search = document.getElementById('commonAppSearch');
+    if (!search) return;
+    const query = search.value.toLowerCase();
+    document.querySelectorAll('[data-action="addCommonApp"]').forEach(btn => {
+        btn.style.display = btn.textContent.toLowerCase().includes(query) ? '' : 'none';
+    });
+    document.querySelectorAll('.common-app-category').forEach(cat => {
+        const hasVisible = Array.from(cat.querySelectorAll('[data-action="addCommonApp"]')).some(btn => btn.style.display !== 'none');
+        cat.style.display = hasVisible ? '' : 'none';
+    });
+}

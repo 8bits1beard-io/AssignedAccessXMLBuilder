@@ -186,10 +186,6 @@ function applyConfigSnapshot(payload) {
     updateMultiEdgeSourceUI();
     updateTaskbarPinTypeUI();
     updateEditTaskbarPinTypeUI();
-    updatePinEdgeArgsModeUI();
-    updateEditPinEdgeArgsModeUI();
-    updateTaskbarPinEdgeArgsModeUI();
-    updateEditTaskbarEdgeArgsModeUI();
     updateEdgeArgsVisibility('pin', 'pinTarget', 'pinEdgeArgsGroup');
     updateEdgeArgsVisibility('editPin', 'editPinTarget', 'editPinEdgeArgsGroup');
     updateEdgeArgsVisibility('taskbarPin', 'taskbarPinTarget', 'taskbarPinEdgeArgsGroup');
@@ -345,18 +341,11 @@ const actionHandlers = {
     applyEditTaskbarPinTargetPreset,
     updateTaskbarPinTypeUI,
     updateEditTaskbarPinTypeUI,
-    updatePinEdgeArgsModeUI,
-    updatePinEdgeArgsSourceUI,
-    updateEditPinEdgeArgsModeUI,
-    updateEditPinEdgeArgsSourceUI,
-    updateTaskbarPinEdgeArgsModeUI,
-    updateTaskbarPinEdgeArgsSourceUI,
-    updateEditTaskbarEdgeArgsModeUI,
-    updateEditTaskbarEdgeArgsSourceUI,
-    applyEdgeArgsToPin,
-    applyEdgeArgsToEditPin,
-    applyEdgeArgsToTaskbarPin,
-    applyEdgeArgsToEditTaskbarPin,
+    updateModalEdgeArgsModeUI,
+    updateModalEdgeArgsSourceUI,
+    openEdgeArgsModal,
+    applyEdgeArgsModal,
+    hideEdgeArgsModal,
     toggleExportSection,
     editPin,
     saveEditPin,
@@ -382,6 +371,7 @@ const actionHandlers = {
     handleConfigImport,
     copyProfileId,
     dismissCallout,
+    switchExportMethod,
     toggleTheme,
     updateSentryUI
 };
